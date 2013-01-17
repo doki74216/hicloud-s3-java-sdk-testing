@@ -73,7 +73,7 @@ public class deleteObject{
 			
 	private static void BasicDeleteObject() throws IOException
 	{		
-		String bucketName = "chttest1";
+		String bucketName = "chttest";
 		String fileName="sample.jpg";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));

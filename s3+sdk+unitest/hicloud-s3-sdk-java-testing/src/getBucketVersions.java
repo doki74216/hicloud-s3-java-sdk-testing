@@ -14,7 +14,7 @@ public class getBucketVersions{
 	{
 		System.out.println("basic get bucket versions");
     	
-		String bucketName="chttest1";
+		String bucketName="chttest";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
@@ -51,7 +51,7 @@ public class getBucketVersions{
 	{
 		System.out.println("basic get bucket versions");
     	
-		String bucketName="chttest1";
+		String bucketName="chttest";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try

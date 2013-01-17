@@ -40,7 +40,7 @@ public class getBucket{
 	{
 		System.out.println("basic get bucket");
 		
-		String bucketName="chttest1";
+		String bucketName="chttest";
 		String fileName="content.txt";
 		String fileName2="context.txt";
 		String fileName3="apple.txt";
@@ -136,7 +136,7 @@ public class getBucket{
 	{
 		System.out.println("generic get bucket");
 		
-		String bucketName="chttest1";
+		String bucketName="chttest";
 		String fileName="apple.jpg";
 		String fileName2="photos/2006/January/sample.jpg";
 		String fileName3="photos/2006/February/sample2.jpg";

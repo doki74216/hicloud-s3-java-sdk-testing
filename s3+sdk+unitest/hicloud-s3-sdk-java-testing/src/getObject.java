@@ -168,7 +168,7 @@ public class getObject{
     
     private static void headObject() throws IOException
     {
-		String bucketName="chttest1";
+		String bucketName="chttest";
 		String fileName="hello.txt";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
@@ -203,7 +203,7 @@ public class getObject{
     
     private static void vGetObject() throws IOException
     {
-		String bucketName="chttest1";
+		String bucketName="chttest";
 		String fileName="apple.txt";
 		String vid = "72b3f39f520c411db753039b7567d069"; 
 		StringBuffer buffer = new StringBuffer(); 
@@ -247,7 +247,7 @@ public class getObject{
     
     private static void vHeadObject() throws IOException
     {
-		String bucketName="chttest1";
+		String bucketName="chttest";
 		String fileName="apple.txt";
 		String vid = "72b3f39f520c411db753039b7567d069"; 
 		StringBuffer buffer = new StringBuffer(); 
@@ -286,7 +286,7 @@ public class getObject{
     
     private static void pGetObject() throws IOException
     {    	
-    		String bucketName="chttest1";
+    		String bucketName="chttest";
     		String fileName="hello.txt";
     		ResponseHeaderOverrides parameters = new ResponseHeaderOverrides();
     		
@@ -332,7 +332,7 @@ public class getObject{
     
     private static void hGetObject() throws IOException
     {    	
-    		String bucketName="chttest1";
+    		String bucketName="chttest";
     		String fileName="hello.txt";
     		Date date = new Date();
     		date.setYear(date.getYear()-10);
@@ -374,7 +374,7 @@ public class getObject{
     
     private static void hGetObject2() throws IOException
     {    	
-    		String bucketName="chttest1";
+    		String bucketName="chttest";
     		String fileName="hello.txt";
     		
     		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
@@ -412,7 +412,7 @@ public class getObject{
     
     private static void hGetObject3() throws IOException
     {    	
-    		String bucketName="chttest1";
+    		String bucketName="chttest";
     		String fileName="hello.txt";
     		Date date = new Date();
     		date.setYear(date.getYear());
