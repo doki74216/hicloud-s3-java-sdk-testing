@@ -47,7 +47,7 @@ public class getBucket{
 		{
 			System.out.println("Creating bucket" + bucketName + "\n");
 	        s3.createBucket(bucketName);
-	        
+	    
 	         
             System.out.println("Uploading a new object to S3 from a file\n");
             s3.putObject(new PutObjectRequest(bucketName, fileName, createSampleFile()));
