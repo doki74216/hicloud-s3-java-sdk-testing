@@ -15,10 +15,12 @@ public class ListParts{
 		System.out.println("basic Upload Part");
 		String bucketName="chttest";
 		String fileName="hello.txt";
-		String uploadID = "LK7JUNJ8IRDDTYD9KWBJ0TN8I04JIWVF9HRQK7TNX4PZ6QY0UQT8JGJK13"; //hello
+		String uploadID = "535K6QPZ6AKYUM9YI63O5BOV1VP6DBYR4D082XTVFKTIPV2ZI5OQ19EJ8M"; //hello
 		//String uploadID = "XHGTFV4F5XTEAC5O8N3LK12TIY3DSY7OFPXIWTHRMNTE7A3WB5M8N2U5AN"; //hi
 		
 		ListPartsRequest request = new ListPartsRequest(bucketName,fileName,uploadID);
+		//ListPartsRequest request = new ListPartsRequest(bucketName,fileName,uploadID).withMaxParts(3);
+		//ListPartsRequest request = new ListPartsRequest(bucketName,fileName,uploadID).withPartNumberMarker(5);
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try

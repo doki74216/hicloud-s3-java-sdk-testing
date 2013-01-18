@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.Date;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -20,7 +19,6 @@ import com.amazonaws.services.s3.model.GetObjectMetadataRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.ResponseHeaderOverrides;
 import com.amazonaws.services.s3.model.S3Object;
 
 public class getObject{
@@ -168,15 +166,14 @@ public class getObject{
     
     private static void headObject() throws IOException
     {
-		String bucketName="chttest1";
+		String bucketName="chttest";
 		String fileName="hello.txt";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
 		{                
             System.out.println("Head Object");
-            //ObjectMetadata object = s3.getObjectMetadata(bucketName,fileName);
-            ObjectMetadata object = s3.getObjectMetadata(new GetObjectMetadataRequest(bucketName,fileName).withBucketName("region").withKey("world.txt"));
+            ObjectMetadata object = s3.getObjectMetadata(bucketName,fileName);
             System.out.println("Content-Length: "  + object.getContentLength());
             System.out.println("raw-metadata: "  + object.getRawMetadata());
             System.out.println("user-metadata: "  + object.getUserMetadata());
@@ -203,9 +200,9 @@ public class getObject{
     
     private static void vGetObject() throws IOException
     {
-		String bucketName="chttest1";
-		String fileName="apple.txt";
-		String vid = "72b3f39f520c411db753039b7567d069"; 
+		String bucketName="chttest";
+		String fileName="hello.txt";
+		String vid = "a5a65e48a4654348969408f75d8fc52c"; 
 		StringBuffer buffer = new StringBuffer(); 
 		String line="";
 				
@@ -213,8 +210,7 @@ public class getObject{
 		try
 		{                
             System.out.println("Getting Object with vid");
-           // GetObjectRequest request = new GetObjectRequest(bucketName,fileName,vid);
-            GetObjectRequest request = new GetObjectRequest(bucketName,fileName).withVersionId(vid);
+            GetObjectRequest request = new GetObjectRequest(bucketName,fileName,vid);
             S3Object object = s3.getObject(request);
 
             System.out.println(object.getKey());
@@ -247,9 +243,9 @@ public class getObject{
     
     private static void vHeadObject() throws IOException
     {
-		String bucketName="chttest1";
-		String fileName="apple.txt";
-		String vid = "72b3f39f520c411db753039b7567d069"; 
+		String bucketName="chttest";
+		String fileName="hello.txt";
+		String vid = "a5a65e48a4654348969408f75d8fc52c"; 
 		StringBuffer buffer = new StringBuffer(); 
 		String line="";
 				
@@ -257,8 +253,7 @@ public class getObject{
 		try
 		{                
             System.out.println("head Object with vid");
-            //GetObjectMetadataRequest request = new GetObjectMetadataRequest(bucketName,fileName,vid);
-            GetObjectMetadataRequest request = new GetObjectMetadataRequest(bucketName,fileName).withVersionId(vid);
+            GetObjectMetadataRequest request = new GetObjectMetadataRequest(bucketName,fileName,vid);
             ObjectMetadata object = s3.getObjectMetadata(request);
 
             System.out.println(object.getContentLength());
@@ -284,187 +279,15 @@ public class getObject{
         }
     }
     
-    private static void pGetObject() throws IOException
-    {    	
-    		String bucketName="chttest1";
-    		String fileName="hello.txt";
-    		ResponseHeaderOverrides parameters = new ResponseHeaderOverrides();
-    		
-    		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
-    		try
-    		{
-    			parameters.setCacheControl("private");
-    			parameters.setContentDisposition("attachment; filename=\"lalala.txt\"");
-    			parameters.setContentEncoding("ZIP");
-    			parameters.setContentLanguage("zw-TW");
-    			parameters.setContentType("image/jpeg");
-    			parameters.setExpires("0");
-    			
-                System.out.println("Getting Object");
-                S3Object object = s3.getObject(new GetObjectRequest(bucketName,fileName).withResponseHeaders(parameters));
-                System.out.println("Content-Type: "  + object.getObjectMetadata().getContentType());
-                System.out.println("Cache-Control: "  + object.getObjectMetadata().getCacheControl());
-                System.out.println("Content-Encoding: "  + object.getObjectMetadata().getContentEncoding());
-                System.out.println("Cache-Control: "  + object.getObjectMetadata().getContentDisposition());
-                System.out.println("ETag: "  + object.getObjectMetadata().getETag());
-                System.out.println("user-metadata: "  + object.getObjectMetadata().getUserMetadata());
-                System.out.println("raw-metadata: "  + object.getObjectMetadata().getRawMetadata());
-                System.out.println("Object Content: \n");
-                displayTextInputStream(object.getObjectContent());
-                System.out.println();
-                
-    		}
-    		catch (AmazonServiceException ase) {
-                System.out.println("Caught an AmazonServiceException, which means your request made it "
-                        + "to Amazon S3, but was rejected with an error response for some reason.");
-                System.out.println("Error Message:    " + ase.getMessage());
-                System.out.println("HTTP Status Code: " + ase.getStatusCode());
-                System.out.println("AWS Error Code:   " + ase.getErrorCode());
-                System.out.println("Error Type:       " + ase.getErrorType());
-                System.out.println("Request ID:       " + ase.getRequestId());
-            } catch (AmazonClientException ace) {
-                System.out.println("Caught an AmazonClientException, which means the client encountered "
-                        + "a serious internal problem while trying to communicate with S3, "
-                        + "such as not being able to access the network.");
-                System.out.println("Error Message: " + ace.getMessage());
-            }
-    }
-    
-    private static void hGetObject() throws IOException
-    {    	
-    		String bucketName="chttest1";
-    		String fileName="hello.txt";
-    		Date date = new Date();
-    		date.setYear(date.getYear()-10);
-    		date.setMonth(date.getMonth()+1);
-    		date.setDate(date.getDate());
-    		
-    		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
-    		try
-    		{    			
-                System.out.println("Getting Object");
-                S3Object object = s3.getObject(new GetObjectRequest(bucketName,fileName).withMatchingETagConstraint("692b09f0ffdcd397f6af4243a1259b1e").withRange(5, 10).withModifiedSinceConstraint(date));
-                System.out.println("Content-Type: "  + object.getObjectMetadata().getContentType());
-                System.out.println("Cache-Control: "  + object.getObjectMetadata().getCacheControl());
-                System.out.println("Content-Encoding: "  + object.getObjectMetadata().getContentEncoding());
-                System.out.println("Cache-Control: "  + object.getObjectMetadata().getContentDisposition());
-                System.out.println("ETag: "  + object.getObjectMetadata().getETag());
-                System.out.println("user-metadata: "  + object.getObjectMetadata().getUserMetadata());
-                System.out.println("raw-metadata: "  + object.getObjectMetadata().getRawMetadata());
-                System.out.println("Object Content: \n");
-                displayTextInputStream(object.getObjectContent());
-                System.out.println();
-                
-    		}
-    		catch (AmazonServiceException ase) {
-                System.out.println("Caught an AmazonServiceException, which means your request made it "
-                        + "to Amazon S3, but was rejected with an error response for some reason.");
-                System.out.println("Error Message:    " + ase.getMessage());
-                System.out.println("HTTP Status Code: " + ase.getStatusCode());
-                System.out.println("AWS Error Code:   " + ase.getErrorCode());
-                System.out.println("Error Type:       " + ase.getErrorType());
-                System.out.println("Request ID:       " + ase.getRequestId());
-            } catch (AmazonClientException ace) {
-                System.out.println("Caught an AmazonClientException, which means the client encountered "
-                        + "a serious internal problem while trying to communicate with S3, "
-                        + "such as not being able to access the network.");
-                System.out.println("Error Message: " + ace.getMessage());
-            }
-    }
-    
-    private static void hGetObject2() throws IOException
-    {    	
-    		String bucketName="chttest1";
-    		String fileName="hello.txt";
-    		
-    		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
-    		try
-    		{    			
-                System.out.println("Getting Object");
-                S3Object object = s3.getObject(new GetObjectRequest(bucketName,fileName).withNonmatchingETagConstraint("692b09f0ffdcd397f6af4243a1259c1e"));
-                System.out.println("Content-Type: "  + object.getObjectMetadata().getContentType());
-                System.out.println("Cache-Control: "  + object.getObjectMetadata().getCacheControl());
-                System.out.println("Content-Encoding: "  + object.getObjectMetadata().getContentEncoding());
-                System.out.println("Cache-Control: "  + object.getObjectMetadata().getContentDisposition());
-                System.out.println("ETag: "  + object.getObjectMetadata().getETag());
-                System.out.println("user-metadata: "  + object.getObjectMetadata().getUserMetadata());
-                System.out.println("raw-metadata: "  + object.getObjectMetadata().getRawMetadata());
-                System.out.println("Object Content: \n");
-                displayTextInputStream(object.getObjectContent());
-                System.out.println();
-                
-    		}
-    		catch (AmazonServiceException ase) {
-                System.out.println("Caught an AmazonServiceException, which means your request made it "
-                        + "to Amazon S3, but was rejected with an error response for some reason.");
-                System.out.println("Error Message:    " + ase.getMessage());
-                System.out.println("HTTP Status Code: " + ase.getStatusCode());
-                System.out.println("AWS Error Code:   " + ase.getErrorCode());
-                System.out.println("Error Type:       " + ase.getErrorType());
-                System.out.println("Request ID:       " + ase.getRequestId());
-            } catch (AmazonClientException ace) {
-                System.out.println("Caught an AmazonClientException, which means the client encountered "
-                        + "a serious internal problem while trying to communicate with S3, "
-                        + "such as not being able to access the network.");
-                System.out.println("Error Message: " + ace.getMessage());
-            }
-    }
-    
-    private static void hGetObject3() throws IOException
-    {    	
-    		String bucketName="chttest1";
-    		String fileName="hello.txt";
-    		Date date = new Date();
-    		date.setYear(date.getYear());
-    		date.setMonth(date.getMonth()+2);
-    		date.setDate(date.getDate());
-    		
-    		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
-    		try
-    		{    			
-                System.out.println("Getting Object");
-                S3Object object = s3.getObject(new GetObjectRequest(bucketName,fileName).withUnmodifiedSinceConstraint(date));
-                System.out.println("Content-Type: "  + object.getObjectMetadata().getContentType());
-                System.out.println("Cache-Control: "  + object.getObjectMetadata().getCacheControl());
-                System.out.println("Content-Encoding: "  + object.getObjectMetadata().getContentEncoding());
-                System.out.println("Cache-Control: "  + object.getObjectMetadata().getContentDisposition());
-                System.out.println("ETag: "  + object.getObjectMetadata().getETag());
-                System.out.println("user-metadata: "  + object.getObjectMetadata().getUserMetadata());
-                System.out.println("raw-metadata: "  + object.getObjectMetadata().getRawMetadata());
-                System.out.println("Object Content: \n");
-                displayTextInputStream(object.getObjectContent());
-                System.out.println();
-                
-    		}
-    		catch (AmazonServiceException ase) {
-                System.out.println("Caught an AmazonServiceException, which means your request made it "
-                        + "to Amazon S3, but was rejected with an error response for some reason.");
-                System.out.println("Error Message:    " + ase.getMessage());
-                System.out.println("HTTP Status Code: " + ase.getStatusCode());
-                System.out.println("AWS Error Code:   " + ase.getErrorCode());
-                System.out.println("Error Type:       " + ase.getErrorType());
-                System.out.println("Request ID:       " + ase.getRequestId());
-            } catch (AmazonClientException ace) {
-                System.out.println("Caught an AmazonClientException, which means the client encountered "
-                        + "a serious internal problem while trying to communicate with S3, "
-                        + "such as not being able to access the network.");
-                System.out.println("Error Message: " + ace.getMessage());
-            }
-    }
-    
     public static void main(String args[]) throws IOException
 	{
 		System.out.println("hello world");
-		//mBasicPutObject();
-		//BasicGetObject();
+		mBasicPutObject();
+		BasicGetObject();
 		//fGetObject();   //with File parameter
 		//vGetObject();     //get object with version id
 		//headObject();
-		vHeadObject(); //head object with version id
-		//pGetObject(); //get object with parameter
-		//hGetObject(); //get object with header: if-match, Range, if-modify-since
-		//hGetObject2(); //get object with header: if-non-match
-		//hGetObject3(); //get object with header: if-non-modify-since
+		//vHeadObject();
 	}
 		
 }

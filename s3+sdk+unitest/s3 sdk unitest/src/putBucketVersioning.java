@@ -49,11 +49,11 @@ public class putBucketVersioning{
 	{
 		System.out.println("basic put bucket versioning");
     	
-		String bucketName="chttest1";
+		String bucketName="chttest";
 		
 		BucketVersioningConfiguration config = new BucketVersioningConfiguration();
-		config.setStatus("Enabled");
-		//config.setStatus("Suspended");
+		//config.setStatus("Enabled");
+		config.setStatus("Suspended");
 		SetBucketVersioningConfigurationRequest version = new SetBucketVersioningConfigurationRequest(bucketName,config);
 
 		

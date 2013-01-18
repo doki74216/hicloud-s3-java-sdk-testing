@@ -194,7 +194,6 @@ public class putObjectACL{
 		basicPutObjectACLv(); //basic put object acl + version id
 		//cPutBucketACL(); // canned acl
 		//cPutBucketACLv(); //canned acl + version id
-		//PutBucketACL();
 	}
 		
 }

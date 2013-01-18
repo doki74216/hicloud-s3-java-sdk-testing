@@ -18,10 +18,16 @@ public class completeMPU{
 		System.out.println("basic complete MPU");
 		String bucketName="chttest";
 		String fileName="hello.txt";
-		String uploadID = "LK7JUNJ8IRDDTYD9KWBJ0TN8I04JIWVF9HRQK7TNX4PZ6QY0UQT8JGJK13"; //hello
+		String uploadID = "535K6QPZ6AKYUM9YI63O5BOV1VP6DBYR4D082XTVFKTIPV2ZI5OQ19EJ8M"; //hello
 		List<PartETag> list = new ArrayList<PartETag>(); //etag
-		list.add(new PartETag (3,"96f07d52e483bd0efe4d9f6ee4646d7a"));
-		//list.add(new PartETag (3,"548270b9bb80feb0c1b851d3442c7abf"));
+		list.add(new PartETag (1,"692b09f0ffdcd397f6af4243a1259b1e"));
+		list.add(new PartETag (2,"692b09f0ffdcd397f6af4243a1259b1e"));
+		list.add(new PartETag (3,"692b09f0ffdcd397f6af4243a1259b1e"));
+		list.add(new PartETag (4,"22577911e88af39f79409e6de8eed4d9"));
+		list.add(new PartETag (5,"692b09f0ffdcd397f6af4243a1259b1e"));
+		list.add(new PartETag (6,"692b09f0ffdcd397f6af4243a1259b1e"));
+		list.add(new PartETag (7,"692b09f0ffdcd397f6af4243a1259b1e"));
+		list.add(new PartETag (8,"692b09f0ffdcd397f6af4243a1259b1e"));
 		
 		CompleteMultipartUploadRequest request = new CompleteMultipartUploadRequest(bucketName,fileName,uploadID,list);
 		

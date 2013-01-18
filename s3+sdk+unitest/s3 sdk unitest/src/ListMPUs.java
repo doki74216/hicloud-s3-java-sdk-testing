@@ -15,21 +15,26 @@ public class ListMPUs{
 	{
 		System.out.println("basic list MPUs");
 		String bucketName="chttest";
-		
-		ListMultipartUploadsRequest request = new ListMultipartUploadsRequest(bucketName);
-		//ListMultipartUploadsRequest request = new ListMultipartUploadsRequest(bucketName).withDelimiter("/");
+		int maxUploadsInt = 2;
+		String delimiter = "/"; 
+		String uploadIdMarker = "P3N0DC2XESBTJYVIX4MPPNEELP0G2OP6UWJ26B6AEJTK4A8VO6D9EXRB0Z";
+		//ListMultipartUploadsRequest request = new ListMultipartUploadsRequest(bucketName);
+		//ListMultipartUploadsRequest request = new ListMultipartUploadsRequest(bucketName).withMaxUploads(maxUploadsInt);
+		//ListMultipartUploadsRequest request = new ListMultipartUploadsRequest(bucketName).withDelimiter(delimiter);
+		//ListMultipartUploadsRequest request = new ListMultipartUploadsRequest(bucketName).withKeyMarker("sample");
+		//ListMultipartUploadsRequest request = new ListMultipartUploadsRequest(bucketName).withPrefix("photos");
+		ListMultipartUploadsRequest request = new ListMultipartUploadsRequest(bucketName).withUploadIdMarker(uploadIdMarker).withKeyMarker("ccchello.txt");
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
 		{
 			MultipartUploadListing result = s3.listMultipartUploads(request);
 			//System.out.println(result.getBucketName());
-			
 			for(MultipartUpload s : result.getMultipartUploads())
 			{
 				System.out.println(s.getKey());
 				System.out.println(s.getUploadId());
-				System.out.println(s.getStorageClass());
+				//System.out.println(s.getStorageClass());
 			}
 	        System.out.println();
 	    }

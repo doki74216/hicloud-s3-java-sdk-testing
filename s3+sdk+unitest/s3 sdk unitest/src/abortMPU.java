@@ -14,7 +14,8 @@ public class abortMPU{
 		String bucketName="chttest";
 		String fileName="hello.txt";
 		//String uploadID = "XHGTFV4F5XTEAC5O8N3LK12TIY3DSY7OFPXIWTHRMNTE7A3WB5M8N2U5AN"; //hi
-		String uploadID = "LE5JS2K6C208JU7ZX1QD2TVRWXOWWF4VNG7LE7TFIX5SYNG4HLOGW9CLAD"; //hello
+		//String uploadID = "LE5JS2K6C208JU7ZX1QD2TVRWXOWWF4VNG7LE7TFIX5SYNG4HLOGW9CLAD"; //hello
+		String uploadID = "LM17F04FYDEROA6770ZURRUS3FN8XSSQY0SXJGDCDBW1ELEUEXRBE6EXF6";
 		
 		AbortMultipartUploadRequest request = new AbortMultipartUploadRequest(bucketName,fileName,uploadID);
 		

@@ -13,7 +13,6 @@ import com.amazonaws.auth.PropertiesCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 public class deleteObject{
@@ -73,15 +72,14 @@ public class deleteObject{
 			
 	private static void BasicDeleteObject() throws IOException
 	{		
-		String bucketName = "chttest1";
-		String fileName="sample.jpg";
+		String bucketName = "chttest";
+		String fileName="hello.txt";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
 		{
 			System.out.println("Deleting object " + fileName + "\n");
 	        s3.deleteObject(bucketName, fileName);
-			//s3.deleteObject(new DeleteObjectRequest(bucketName, fileName).withBucketName("region").withKey("world.txt"));
 
 		}
 		catch (AmazonServiceException ase) {
@@ -133,7 +131,7 @@ public class deleteObject{
 	{
 		System.out.println("hello world");
 		//basicPutObject();
-		BasicDeleteObject();
-		//vBasicDeleteObject();
+		//BasicDeleteObject();
+		vBasicDeleteObject();
 	}
 }

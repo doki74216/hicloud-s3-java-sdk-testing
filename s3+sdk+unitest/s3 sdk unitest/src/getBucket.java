@@ -3,7 +3,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.List;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -13,8 +12,6 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
-import com.amazonaws.services.s3.model.PartListing;
-import com.amazonaws.services.s3.model.PartSummary;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
@@ -40,7 +37,7 @@ public class getBucket{
 	{
 		System.out.println("basic get bucket");
 		
-		String bucketName="chttest1";
+		String bucketName="chttest";
 		String fileName="content.txt";
 		String fileName2="context.txt";
 		String fileName3="apple.txt";
@@ -136,18 +133,17 @@ public class getBucket{
 	{
 		System.out.println("generic get bucket");
 		
-		String bucketName="chttest1";
+		String bucketName="chttest";
 		String fileName="apple.jpg";
 		String fileName2="photos/2006/January/sample.jpg";
 		String fileName3="photos/2006/February/sample2.jpg";
 		String fileName4="asset.txt";
-		String fileName5="photos/2006/February/sample3.jpg";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
 		{
-			//System.out.println("Creating bucket " + bucketName + "\n");
-	       // s3.createBucket(bucketName);
+			System.out.println("Creating bucket" + bucketName + "\n");
+	        s3.createBucket(bucketName);
 	        
 	         
             System.out.println("Uploading a new object to S3 from a file\n");
@@ -155,9 +151,8 @@ public class getBucket{
             s3.putObject(new PutObjectRequest(bucketName, fileName2, createSampleFile()));
             s3.putObject(new PutObjectRequest(bucketName, fileName3, createSampleFile()));
             s3.putObject(new PutObjectRequest(bucketName, fileName4, createSampleFile()));
-            s3.putObject(new PutObjectRequest(bucketName, fileName5, createSampleFile()));
             
-            System.out.println("Listing object from bucket (prefix)\n"); //test prefix=photos/
+            System.out.println("Listing object from bucket (prefix)\n"); //test prefix
             ObjectListing objectListing = s3.listObjects(new ListObjectsRequest()
             .withBucketName(bucketName)
             .withPrefix("photos/"));           
@@ -167,38 +162,26 @@ public class getBucket{
             }
 	        System.out.println();
 	        
-            System.out.println("Listing object from bucket (delimeter)\n"); //test delimiter=/
+            System.out.println("Listing object from bucket (delimeter)\n"); //test delimeter
             objectListing = s3.listObjects(new ListObjectsRequest()
             .withBucketName(bucketName)
-            .withDelimiter("/"));         
-
-            if(objectListing.getObjectSummaries().equals("[]"))
-            {   
-            	for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) 
-            	{
-            		System.out.println(" - " + objectSummary.getKey() + "  " + "(size = " + objectSummary.getSize() + ")");
-            	}
+            .withDelimiter("/"));           
+            for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+                System.out.println(" - " + objectSummary.getKey() + "  " +
+                                   "(size = " + objectSummary.getSize() + ")");
             }
-			System.out.println("Common Prefix: "+ objectListing.getCommonPrefixes());
 	        System.out.println();
 	        
-            System.out.println("Listing object from bucket (delimiter & prefix)\n"); //test delimiter=photos/2006/ & prefix=/
-            objectListing = s3.listObjects(new ListObjectsRequest().withBucketName(bucketName).withPrefix("photos/2006/").withDelimiter("/")); 
-            
-            if(objectListing.getObjectSummaries().equals("[]"))
-            {
-            	for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) 
-            	{
-	            	System.out.println(objectSummary.getBucketName());
-	                System.out.println(" - " + objectSummary.getKey() + "  " +
-	                                   "(size = " + objectSummary.getSize() + ")");
-	                System.out.println(objectSummary.getOwner());
-            	}
+            System.out.println("Listing object from bucket (delimeter & prefix)\n"); //test delimeter & prefix
+            objectListing = s3.listObjects(new ListObjectsRequest()
+            .withBucketName(bucketName)
+            .withDelimiter("/")
+            .withDelimiter("/"));           
+            for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+                System.out.println(" - " + objectSummary.getKey() + "  " +
+                                   "(size = " + objectSummary.getSize() + ")");
             }
-	        System.out.println("common prefix: "+ objectListing.getCommonPrefixes());
-	        System.out.println("Delimiter: "+ objectListing.getDelimiter());
-	        System.out.println("Prefix: "+ objectListing.getPrefix());
-	        System.out.println("BucketName: "+ objectListing.getBucketName());
+	        System.out.println(objectListing.getCommonPrefixes());
 	        System.out.println();
 	        
             System.out.println("Listing object from bucket (max key)\n"); //test max key
@@ -241,8 +224,8 @@ public class getBucket{
 	public static void main(String args[]) throws IOException
 	{
 		System.out.println("hello world");
-		//basicGetBucket();
-		//pBasicGetBucket();  //with prefix
-		GenericGetBucket(); //with parameter (prefix, marker, delimiter, maxkey)
+		basicGetBucket();
+		//pBasicGetBucket(); 
+		//GenericGetBucket(); //with prefix
 	}
 }

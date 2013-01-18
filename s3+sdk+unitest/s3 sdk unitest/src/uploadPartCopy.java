@@ -3,6 +3,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -12,6 +15,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.CopyPartRequest;
 import com.amazonaws.services.s3.model.CopyPartResult;
+import com.amazonaws.services.s3.model.PartETag;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 public class uploadPartCopy{
@@ -23,7 +27,7 @@ public class uploadPartCopy{
         Writer writer = new OutputStreamWriter(new FileOutputStream(file));
         writer.write("abcdefghijklmnopqrstuvwxyz\n");
         writer.write("01234567890112345678901234\n");
-        writer.write("!@#$%^&*()-=[]{};':',.<>/?\n");
+        //writer.write("!@#$%^&*()-=[]{};':',.<>/?\n");
         writer.write("01234567890112345678901234\n");
         writer.write("abcdefghijklmnopqrstuvwxyz\n");
         writer.close();
@@ -77,7 +81,15 @@ public class uploadPartCopy{
     	String dbucketName = "chttest";
     	String sfileName = "world.txt";
     	String dfileName = "hello.txt";
-    	String uploadID = "LK7JUNJ8IRDDTYD9KWBJ0TN8I04JIWVF9HRQK7TNX4PZ6QY0UQT8JGJK13"; //hello
+    	String uploadID = "535K6QPZ6AKYUM9YI63O5BOV1VP6DBYR4D082XTVFKTIPV2ZI5OQ19EJ8M"; //hello
+    	long firstByte = 1;
+    	long lastByte = 322122547 ;
+    	List<String> list = new ArrayList<String>(); //etag
+    	list.add("692b09f0ffdcd397f6af4243a1259b1a");
+        Date date = new Date();
+        date.setYear(date.getYear());
+        date.setMonth(date.getMonth()+2);
+        date.setDate(date.getDate());        
     	
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
@@ -87,10 +99,17 @@ public class uploadPartCopy{
 			request.setDestinationBucketName(dbucketName);
 			request.setDestinationKey(dfileName);
 			request.setUploadId(uploadID);
-			request.setPartNumber(3);
+			request.setPartNumber(8);
 			request.setSourceBucketName(sbucketName);
 			request.setSourceKey(sfileName);
-
+			request.setFirstByte(firstByte);
+			request.setLastByte(lastByte);
+			//request.setMatchingETagConstraints(list);
+			//request.setNonmatchingETagConstraints(list);
+			//request.setModifiedSinceConstraint(date);
+			//request.setUnmodifiedSinceConstraint(date);
+			//request.setRequestCredentials(credentials);
+			
 			CopyPartResult result = s3.copyPart(request);
 			System.out.println(result.getPartNumber());
 			System.out.println(result.getETag());
@@ -114,8 +133,8 @@ public class uploadPartCopy{
     
     public static void main(String args[]) throws IOException
 	{
-    	String dbucketName = "region";
-    	String dfileName = "world.txt";
+    	//String dbucketName = "region";
+    	//String dfileName = "world.txt";
     	
 		System.out.println("hello world");
 		//basicPutBucket(dbucketName,dfileName);

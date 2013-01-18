@@ -21,7 +21,7 @@ public class UploadPart{
         Writer writer = new OutputStreamWriter(new FileOutputStream(file));
         writer.write("abcdefghijklmnopqrstuvwxyz\n");
         writer.write("01234567890112345678901234\n");
-        writer.write("!@#$%^&*()-=[]{};':',.<>/?\n");
+        //writer.write("!@#$%^&*()-=[]{};':',.<>/?\n");
         writer.write("01234567890112345678901234\n");
         writer.write("abcdefghijklmnopqrstuvwxyz\n");
         writer.close();
@@ -32,18 +32,21 @@ public class UploadPart{
 	private static void basicUploadPart() throws IOException
 	{
 		System.out.println("basic Upload Part");
-		String bucketName="chttest";
-		String fileName="hello.txt";
-		String uploadID = "LW1QXFVMKS7X6YH3VI5LX0CMAK3B1KOVV3FXHLS3W4FFD051Q7PIVE9F1Z"; //hello
+		String bucketName="region";
+		String fileName="world.txt";
+		String md5Digest="aSsJ8P/c05f2r0JDoSWbHg==";
+		String uploadID = "4Q4P412QUQQPOCLDD6PU2S6ERLNW62MGLZ6O1SJWJ55QEBIT9B5WON13DG"; //hello
 		//String uploadID = "XHGTFV4F5XTEAC5O8N3LK12TIY3DSY7OFPXIWTHRMNTE7A3WB5M8N2U5AN"; //hi
 		
 		UploadPartRequest config = new UploadPartRequest();
 		config.setBucketName(bucketName);
 		config.setKey(fileName);
-		config.setPartNumber(2); //part number
+		config.setPartNumber(1); //part number
 		config.setUploadId(uploadID);
 		config.setFile(createSampleFile());
-		config.setPartSize(134); //134
+		config.setPartSize(108); //content-length
+		//config.setMd5Digest(md5Digest);
+		//config.setLastPart(true);
 
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
