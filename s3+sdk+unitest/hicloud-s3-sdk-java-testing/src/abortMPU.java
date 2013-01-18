@@ -44,7 +44,7 @@ public class abortMPU{
     public static void main(String args[]) throws IOException
 	{
 		System.out.println("hello world");
-		basicAbortMPU();
+		//basicAbortMPU();
 	}
 		
 }
