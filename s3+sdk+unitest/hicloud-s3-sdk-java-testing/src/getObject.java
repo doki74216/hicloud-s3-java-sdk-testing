@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.Date;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -19,6 +20,7 @@ import com.amazonaws.services.s3.model.GetObjectMetadataRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.ResponseHeaderOverrides;
 import com.amazonaws.services.s3.model.S3Object;
 
 public class getObject{
@@ -201,13 +203,9 @@ public class getObject{
     private static void vGetObject() throws IOException
     {
 		String bucketName="chttest";
-<<<<<<< HEAD:s3+sdk+unitest/s3 sdk unitest/src/getObject.java
 		String fileName="hello.txt";
 		String vid = "a5a65e48a4654348969408f75d8fc52c"; 
-=======
-		String fileName="apple.txt";
-		String vid = "72b3f39f520c411db753039b7567d069"; 
->>>>>>> f0aaa97f61256c4e7bebce2bf308d67463544524:s3+sdk+unitest/hicloud-s3-sdk-java-testing/src/getObject.java
+
 		StringBuffer buffer = new StringBuffer(); 
 		String line="";
 				
@@ -249,13 +247,9 @@ public class getObject{
     private static void vHeadObject() throws IOException
     {
 		String bucketName="chttest";
-<<<<<<< HEAD:s3+sdk+unitest/s3 sdk unitest/src/getObject.java
 		String fileName="hello.txt";
 		String vid = "a5a65e48a4654348969408f75d8fc52c"; 
-=======
-		String fileName="apple.txt";
-		String vid = "72b3f39f520c411db753039b7567d069"; 
->>>>>>> f0aaa97f61256c4e7bebce2bf308d67463544524:s3+sdk+unitest/hicloud-s3-sdk-java-testing/src/getObject.java
+
 		StringBuffer buffer = new StringBuffer(); 
 		String line="";
 				
@@ -289,8 +283,7 @@ public class getObject{
         }
     }
     
-<<<<<<< HEAD:s3+sdk+unitest/s3 sdk unitest/src/getObject.java
-=======
+
     private static void pGetObject() throws IOException
     {    	
     		String bucketName="chttest";
@@ -459,7 +452,7 @@ public class getObject{
             }
     }
     
->>>>>>> f0aaa97f61256c4e7bebce2bf308d67463544524:s3+sdk+unitest/hicloud-s3-sdk-java-testing/src/getObject.java
+
     public static void main(String args[]) throws IOException
 	{
 		System.out.println("hello world");

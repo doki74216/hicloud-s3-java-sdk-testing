@@ -4,6 +4,7 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.PropertiesCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.ListVersionsRequest;
 import com.amazonaws.services.s3.model.S3VersionSummary;
 import com.amazonaws.services.s3.model.VersionListing;
 
@@ -45,9 +46,7 @@ public class getBucketVersions{
 	    	System.out.println("Error Message: " + ace.getMessage());
 	    }
 	}
-	
-<<<<<<< HEAD:s3+sdk+unitest/s3 sdk unitest/src/getBucketVersions.java
-=======
+
 	private static void pGetBucketVersions() throws IOException
 	{
 		System.out.println("basic get bucket versions");
@@ -150,8 +149,7 @@ public class getBucketVersions{
 	    	System.out.println("Error Message: " + ace.getMessage());
 	    }
 	}
-	
->>>>>>> f0aaa97f61256c4e7bebce2bf308d67463544524:s3+sdk+unitest/hicloud-s3-sdk-java-testing/src/getBucketVersions.java
+
  
     public static void main(String args[]) throws IOException
 	{

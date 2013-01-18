@@ -107,12 +107,7 @@ public class putObjectCopy{
 	{
     	String sbucketName = "chttest";
     	String dbucketName = "region";
-<<<<<<< HEAD:s3+sdk+unitest/s3 sdk unitest/src/putObjectCopy.java
     	String sfileName = "hello.txt";
-=======
-    	//String sfileName = "hello.txt";
-    	String sfileName = "apple.txt";
->>>>>>> f0aaa97f61256c4e7bebce2bf308d67463544524:s3+sdk+unitest/hicloud-s3-sdk-java-testing/src/putObjectCopy.java
     	String dfileName = "world.txt";
     	
 		System.out.println("hello world");

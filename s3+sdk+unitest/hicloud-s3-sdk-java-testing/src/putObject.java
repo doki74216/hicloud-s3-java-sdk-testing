@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -12,8 +14,10 @@ import com.amazonaws.auth.PropertiesCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.StorageClass;
 
 public class putObject{
 	
@@ -48,16 +52,29 @@ public class putObject{
         return fin;
     }
     
+    private static InputStream ReadFile1() throws IOException {
+    	File file = File.createTempFile("aws-java-sdk-", ".txt");
+        //file.deleteOnExit();
+
+        Writer writer = new OutputStreamWriter(new FileOutputStream(file));
+        writer.write("abcdefghijklmnopqrstuvwxyz\n");
+        writer.write("01234567890112345678901234\n");
+        writer.write("!@#$%^&*()-=[]{};':',.<>/?\n");
+        writer.write("01234567890112345678901234\n");
+        writer.write("abcdefghijklmnopqrstuvwxyz\n");
+        writer.close();
+        
+        FileInputStream fin = new FileInputStream(file);
+        return fin;
+    }
+    
     private static void basicPutObject() throws IOException
     {
     	System.out.println("basic put bucket");
     	
 		String bucketName="chttest";
-<<<<<<< HEAD:s3+sdk+unitest/s3 sdk unitest/src/putObject.java
 		String fileName="hello.txt";
-=======
-		String fileName="sample.jpg";
->>>>>>> f0aaa97f61256c4e7bebce2bf308d67463544524:s3+sdk+unitest/hicloud-s3-sdk-java-testing/src/putObject.java
+
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
@@ -132,8 +149,6 @@ public class putObject{
         }
     }
 	
-<<<<<<< HEAD:s3+sdk+unitest/s3 sdk unitest/src/putObject.java
-=======
     private static void GeneralPutObject() throws IOException
     {
     	System.out.println("general put bucket");
@@ -188,7 +203,7 @@ public class putObject{
             System.out.println("Error Message: " + ace.getMessage());
         }
     }
->>>>>>> f0aaa97f61256c4e7bebce2bf308d67463544524:s3+sdk+unitest/hicloud-s3-sdk-java-testing/src/putObject.java
+
     
     public static void main(String args[]) throws IOException
 	{
