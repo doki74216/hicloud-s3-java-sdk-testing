@@ -73,7 +73,11 @@ public class deleteObject{
 	private static void BasicDeleteObject() throws IOException
 	{		
 		String bucketName = "chttest";
+<<<<<<< HEAD:s3+sdk+unitest/s3 sdk unitest/src/deleteObject.java
 		String fileName="hello.txt";
+=======
+		String fileName="sample.jpg";
+>>>>>>> f0aaa97f61256c4e7bebce2bf308d67463544524:s3+sdk+unitest/hicloud-s3-sdk-java-testing/src/deleteObject.java
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
