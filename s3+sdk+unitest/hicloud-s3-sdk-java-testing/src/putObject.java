@@ -16,6 +16,8 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.ProgressEvent;
+import com.amazonaws.services.s3.model.ProgressListener;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.StorageClass;
 
@@ -79,8 +81,8 @@ public class putObject{
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
 		{
-			System.out.println("Creating bucket " + bucketName + "\n");
-           s3.createBucket(bucketName);
+			//System.out.println("Creating bucket " + bucketName + "\n");
+           // s3.createBucket(bucketName);
             
             System.out.println("Listing buckets");
             for (Bucket bucket : s3.listBuckets()) {
@@ -89,7 +91,16 @@ public class putObject{
             System.out.println();
             
             System.out.println("Uploading a new object to S3 from a file\n");
-            s3.putObject(new PutObjectRequest(bucketName, fileName, createSampleFile()));
+            //s3.putObject(new PutObjectRequest(bucketName, fileName, createSampleFile()));
+            PutObjectRequest request = new PutObjectRequest(bucketName, fileName, createSampleFile());
+            request.withProgressListener(new ProgressListener() {
+    			public void progressChanged(ProgressEvent event) {
+    				System.out.println("Transferred bytes: " + 
+    						event.getBytesTransfered());
+    			}
+    		});
+            s3.putObject(request);
+
 		}
 		catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which means your request made it "
@@ -165,7 +176,7 @@ public class putObject{
 		try
 		{
 			//System.out.println("Creating bucket " + bucketName + "\n");
-            //s3.createBucket(bucketName);
+           // s3.createBucket(bucketName);
             
             System.out.println("Listing buckets");
             for (Bucket bucket : s3.listBuckets()) {
@@ -185,8 +196,8 @@ public class putObject{
             metadata.setContentMD5("aSsJ8P/c05f2r0JDoSWbHg=="); //hello.txt
             		
             System.out.println("Uploading a new object to S3 from a file\n");
-            s3.putObject(new PutObjectRequest(bucketName, fileName, ReadFile(),metadata).withInputStream(ReadFile1()).withCannedAcl(cannedAcl.PublicRead).withStorageClass("STANDARD").withMetadata(metadata));
-            //s3.putObject(new PutObjectRequest(bucketName, fileName2, ReadFile(),metadata).withFile(createSampleFile()).withCannedAcl(cannedAcl.PublicReadWrite).withStorageClass(storageClass.ReducedRedundancy).withMetadata(metadata));
+           // s3.putObject(new PutObjectRequest(bucketName, fileName, ReadFile(),metadata).withInputStream(ReadFile1()).withCannedAcl(cannedAcl.PublicRead).withStorageClass("STANDARD").withMetadata(metadata));
+            s3.putObject(new PutObjectRequest(bucketName, fileName2, ReadFile(),metadata).withFile(createSampleFile()).withCannedAcl(cannedAcl.PublicReadWrite).withStorageClass(storageClass.ReducedRedundancy).withMetadata(metadata));
 		}
 		catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which means your request made it "
@@ -208,8 +219,9 @@ public class putObject{
     public static void main(String args[]) throws IOException
 	{
 		System.out.println("hello world");
-		basicPutObject();
+		basicPutObject(); //basic put object + put object with progress listener
 		//mBasicPutObject();
+		//GeneralPutObject();
 	}
 		
 }

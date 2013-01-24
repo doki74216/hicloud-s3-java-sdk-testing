@@ -120,8 +120,8 @@ public class initialMPU{
 		
 		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName,meta);
 		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName);
-		InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withAccessControlList(acl);
-        //InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withObjectMetadata(meta);
+		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withAccessControlList(acl);
+        InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withObjectMetadata(meta);
         
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try

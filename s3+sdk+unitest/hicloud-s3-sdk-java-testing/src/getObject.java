@@ -19,6 +19,8 @@ import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.GetObjectMetadataRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.ProgressEvent;
+import com.amazonaws.services.s3.model.ProgressListener;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.ResponseHeaderOverrides;
 import com.amazonaws.services.s3.model.S3Object;
@@ -452,16 +454,60 @@ public class getObject{
             }
     }
     
-
+    private static void PLGetObject() throws IOException
+    {    	
+    		String bucketName="chttest";
+    		String fileName="hello.txt";
+    		
+    		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
+    		try
+    		{                
+                System.out.println("Getting Object");
+                GetObjectRequest request = new GetObjectRequest(bucketName,fileName);
+                request.withProgressListener(new ProgressListener() 
+                {
+        			public void progressChanged(ProgressEvent event) {
+        				System.out.println("Transferred bytes: " + event.getBytesTransfered());
+        				System.out.println("Event Code: " + event.getEventCode());
+        			}
+        		});
+                S3Object object = s3.getObject(request);
+                
+                //S3Object object = s3.getObject(bucketName,fileName);
+                System.out.println("Content-Type: "  + object.getObjectMetadata().getContentType());
+                System.out.println("ETag: "  + object.getObjectMetadata().getETag());
+                System.out.println("user-metadata: "  + object.getObjectMetadata().getUserMetadata());
+                System.out.println("raw-metadata: "  + object.getObjectMetadata().getRawMetadata());
+                displayTextInputStream(object.getObjectContent());
+                System.out.println();
+                
+    		}
+    		catch (AmazonServiceException ase) {
+                System.out.println("Caught an AmazonServiceException, which means your request made it "
+                        + "to Amazon S3, but was rejected with an error response for some reason.");
+                System.out.println("Error Message:    " + ase.getMessage());
+                System.out.println("HTTP Status Code: " + ase.getStatusCode());
+                System.out.println("AWS Error Code:   " + ase.getErrorCode());
+                System.out.println("Error Type:       " + ase.getErrorType());
+                System.out.println("Request ID:       " + ase.getRequestId());
+            } catch (AmazonClientException ace) {
+                System.out.println("Caught an AmazonClientException, which means the client encountered "
+                        + "a serious internal problem while trying to communicate with S3, "
+                        + "such as not being able to access the network.");
+                System.out.println("Error Message: " + ace.getMessage());
+            }
+    }
+    
     public static void main(String args[]) throws IOException
 	{
 		System.out.println("hello world");
-		mBasicPutObject();
-		BasicGetObject();
+		//mBasicPutObject();
+		//BasicGetObject();
 		//fGetObject();   //with File parameter
 		//vGetObject();     //get object with version id
 		//headObject();
 		//vHeadObject();
+		PLGetObject(); //with progress listener
 	}
 		
 }
