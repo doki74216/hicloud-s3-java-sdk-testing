@@ -72,7 +72,7 @@ public class initialMPU{
 		String fileName="world.txt";
 		ObjectMetadata meta = new ObjectMetadata();
 		meta.setHeader("x-amz-color", "red");
-		CannedAccessControlList acl = null;
+		//CannedAccessControlList acl = null;
 		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName,meta);
 		InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName);
 		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withCannedACL(acl.AuthenticatedRead);
@@ -119,8 +119,8 @@ public class initialMPU{
         acl.grantPermission(new CanonicalGrantee("canonicalidhrchu"), Permission.FullControl);		
 		
 		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName,meta);
-		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName);
-		InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withAccessControlList(acl);
+		InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName);
+		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withAccessControlList(acl);
         //InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withObjectMetadata(meta);
         
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));

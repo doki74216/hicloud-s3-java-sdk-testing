@@ -34,7 +34,7 @@ public class UploadPart{
 		System.out.println("basic Upload Part");
 		String bucketName="region";
 		String fileName="world.txt";
-		String md5Digest="aSsJ8P/c05f2r0JDoSWbHg==";
+		//String md5Digest="aSsJ8P/c05f2r0JDoSWbHg==";
 		String uploadID = "4Q4P412QUQQPOCLDD6PU2S6ERLNW62MGLZ6O1SJWJ55QEBIT9B5WON13DG"; //hello
 		//String uploadID = "XHGTFV4F5XTEAC5O8N3LK12TIY3DSY7OFPXIWTHRMNTE7A3WB5M8N2U5AN"; //hi
 		
