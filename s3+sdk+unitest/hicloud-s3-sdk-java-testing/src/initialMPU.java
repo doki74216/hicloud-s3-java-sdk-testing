@@ -119,9 +119,15 @@ public class initialMPU{
         acl.grantPermission(new CanonicalGrantee("canonicalidhrchu"), Permission.FullControl);		
 		
 		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName,meta);
+<<<<<<< HEAD
 		InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName);
 		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withAccessControlList(acl);
         //InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withObjectMetadata(meta);
+=======
+		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName);
+		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withAccessControlList(acl);
+        InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withObjectMetadata(meta);
+>>>>>>> 7e0f3e39b471b02c3dd6290bc3f0b42731b2ca61
         
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
