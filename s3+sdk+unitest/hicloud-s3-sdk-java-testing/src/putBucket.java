@@ -34,7 +34,7 @@ public class putBucket{
     {
     	System.out.println("basic put bucket");
     	
-		String bucketName="chttest";
+		String bucketName="chttest2";
 		String fileName="hello.txt";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
