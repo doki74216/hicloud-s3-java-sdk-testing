@@ -32,7 +32,7 @@ public class initialMPU{
 	{
 		System.out.println("basic put bucket");
 	    	
-		String bucketName="region";
+		String bucketName="chttest";
 		String fileName="world.txt";
 			
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
@@ -68,8 +68,8 @@ public class initialMPU{
 	private static void basicInitialMPU() throws IOException
 	{
 		System.out.println("basic initial MPU");
-		String bucketName="region";
-		String fileName="world.txt";
+		String bucketName="chttest";
+		String fileName="6G";
 		ObjectMetadata meta = new ObjectMetadata();
 		meta.setHeader("x-amz-color", "red");
 		//CannedAccessControlList acl = null;
@@ -77,6 +77,7 @@ public class initialMPU{
 		InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName);
 		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withCannedACL(acl.AuthenticatedRead);
 		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withStorageClass(StorageClass.Standard);
+		
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
@@ -119,16 +120,12 @@ public class initialMPU{
         acl.grantPermission(new CanonicalGrantee("canonicalidhrchu"), Permission.FullControl);		
 		
 		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName,meta);
-<<<<<<< HEAD
 		InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName);
 		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withAccessControlList(acl);
         //InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withObjectMetadata(meta);
-=======
 		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName);
 		//InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withAccessControlList(acl);
-        InitiateMultipartUploadRequest config = new InitiateMultipartUploadRequest(bucketName,fileName).withObjectMetadata(meta);
->>>>>>> 7e0f3e39b471b02c3dd6290bc3f0b42731b2ca61
-        
+
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
 		{
