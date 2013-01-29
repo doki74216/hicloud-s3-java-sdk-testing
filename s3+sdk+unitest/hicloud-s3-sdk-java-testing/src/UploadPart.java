@@ -28,7 +28,7 @@ public class UploadPart{
         Writer writer = new OutputStreamWriter(new FileOutputStream(file));
         writer.write("abcdefghijklmnopqrstuvwxyz\n");
         writer.write("01234567890112345678901234\n");
-        //writer.write("!@#$%^&*()-=[]{};':',.<>/?\n");
+        writer.write("!@#$%^&*()-=[]{};':',.<>/?\n");
         writer.write("01234567890112345678901234\n");
         writer.write("abcdefghijklmnopqrstuvwxyz\n");
         writer.close();
@@ -39,34 +39,54 @@ public class UploadPart{
 	private static void basicUploadPart() throws IOException
 	{
 		System.out.println("basic Upload Part");
-		String bucketName="region";
+		String bucketName="chttest";
 		String fileName="world.txt";
-		String md5Digest="aSsJ8P/c05f2r0JDoSWbHg==";
-		String uploadID = "FL05I8XA1K5IUFOLXM7HTU7AP1PHUFY8R29DWXL5NCNQSADV9F66H2RCPD"; //hello
+
+		//String md5Digest="aSsJ8P/c05f2r0JDoSWbHg==";
+
+
+		//String md5Digest="aSsJ8P/c05f2r0JDoSWbHg==";
+		String uploadID = "OXB19RHG3LIIYB442BP7C2HBMV54BK22A30SINOU77EC6AVE1E4II5ASJ7";  //hello
+
 		//String uploadID = "XHGTFV4F5XTEAC5O8N3LK12TIY3DSY7OFPXIWTHRMNTE7A3WB5M8N2U5AN"; //hi
+		//long fileOffset = 25;
+		//String filePath = "D:/5M";
+		//File file = new File(filePath);
 		
-		
+
 		UploadPartRequest config = new UploadPartRequest();
+		
 		config.setBucketName(bucketName);
 		config.setKey(fileName);
-		config.setPartNumber(1); //part number
+		config.setPartNumber(6); //part number
 		config.setUploadId(uploadID);
 		config.setFile(createSampleFile());
-		config.setPartSize(108); //content-length
+		//config.setFile(file);
+		config.setPartSize(5242880); //content-length
 		//config.setMd5Digest(md5Digest);
 		//config.setLastPart(true);
-		config.withProgressListener(new ProgressListener() 
+
+	/*	config.withProgressListener(new ProgressListener() 
         {
 			public void progressChanged(ProgressEvent event) {
 				System.out.println("Transferred bytes: " + event.getBytesTransfered());
 				System.out.println("Event Code: " + event.getEventCode());
 			}
-		});
+		});*/
+
+
+		//config.setFileOffset(fileOffset);
+/*		config.withProgressListener(new ProgressListener() {
+    			public void progressChanged(ProgressEvent event) {
+    				System.out.println("Transferred bytes: " + 
+    						event.getBytesTransfered());
+    			}
+    		});*/
 
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
-		{
+		{			
 			UploadPartResult result = s3.uploadPart(config);
 			System.out.println(result.getPartNumber());
 	        System.out.println();
@@ -124,12 +144,12 @@ public class UploadPart{
 		request.setPartNumber(1);
 		request.setUploadId(uploadID);
 		
-		request.setProgressListener(new ProgressListener() {
+		/*request.setProgressListener(new ProgressListener() {
 			public void progressChanged(ProgressEvent event) {
 				System.out.println("Transferred bytes: " + 
 						event.getBytesTransfered());
 			}
-		});
+		});*/
 		//Upload upload = tm.
 		try
 		{
