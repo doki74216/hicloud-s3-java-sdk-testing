@@ -119,7 +119,7 @@ public class BucketSerialTesting{
             AccessControlList bucketAcl = s3.getBucketAcl(bucketName);
             Set<Grant> grants = bucketAcl.getGrants();
 			//System.out.println(bucketAcl.getGrants());
-			if(grants.toString().matches(temp))
+			if(grants.toString().indexOf(temp)==-1)
 			{
 				System.out.println("ERROR!!!\n PutBucket Canned ACL Error\n");
 			}
