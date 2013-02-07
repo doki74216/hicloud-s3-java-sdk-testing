@@ -11,9 +11,9 @@ public class deleteBucket{
 	
 	private static void BasicDeleteBucket() throws IOException
 	{
-		System.out.println("basic get bucket");
+		System.out.println("basic delete bucket");
 		
-		String bucketName="chttest";
+		String bucketName="region";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try

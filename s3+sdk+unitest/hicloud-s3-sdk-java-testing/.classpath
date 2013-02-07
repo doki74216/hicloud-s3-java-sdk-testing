@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="D:/Local Repo/hicloud-sdk-java-testing/s3+sdk+unitest/hicloud-s3-sdk-java-testing/lib/commons-codec-1.4.jar"/>
 	<classpathentry kind="lib" path="D:/Local Repo/hicloud-sdk-java-testing/s3+sdk+unitest/hicloud-s3-sdk-java-testing/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="D:/Local Repo/hicloud-sdk-java-testing/s3+sdk+unitest/hicloud-s3-sdk-java-testing/lib/httpclient-4.1.3.jar"/>
@@ -9,5 +10,14 @@
 	<classpathentry kind="lib" path="D:/Local Repo/hicloud-sdk-java-testing/s3+sdk+unitest/hicloud-s3-sdk-java-testing/lib/httpcore-4.1.3.jar"/>
 	<classpathentry kind="lib" path="D:/Local Repo/hicloud-sdk-java-testing/s3+sdk+unitest/hicloud-s3-sdk-java-testing/lib/httpmime-4.1.3.jar"/>
 	<classpathentry kind="lib" path="D:/Local Repo/hicloud-sdk-java-testing/s3+sdk+unitest/hicloud-s3-sdk-java-testing/lib/aws-java-sdk-1.3.6.jar"/>
+=======
+	<classpathentry kind="lib" path="D:/workspace/Local repo/s3-sdk-unitest/s3+sdk+unitest/hicloud-s3-sdk-java-testing/lib/aws-java-sdk-1.3.6.jar"/>
+	<classpathentry kind="lib" path="D:/workspace/Local repo/s3-sdk-unitest/s3+sdk+unitest/hicloud-s3-sdk-java-testing/lib/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="D:/workspace/Local repo/s3-sdk-unitest/s3+sdk+unitest/hicloud-s3-sdk-java-testing/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="D:/workspace/Local repo/s3-sdk-unitest/s3+sdk+unitest/hicloud-s3-sdk-java-testing/lib/httpclient-4.1.3.jar"/>
+	<classpathentry kind="lib" path="D:/workspace/Local repo/s3-sdk-unitest/s3+sdk+unitest/hicloud-s3-sdk-java-testing/lib/httpclient-cache-4.1.3.jar"/>
+	<classpathentry kind="lib" path="D:/workspace/Local repo/s3-sdk-unitest/s3+sdk+unitest/hicloud-s3-sdk-java-testing/lib/httpcore-4.1.3.jar"/>
+	<classpathentry kind="lib" path="D:/workspace/Local repo/s3-sdk-unitest/s3+sdk+unitest/hicloud-s3-sdk-java-testing/lib/httpmime-4.1.3.jar"/>
+>>>>>>> ee48f93ad12b1242bd6c5864d715541a9c06b30f
 	<classpathentry kind="output" path="bin"/>
 </classpath>
