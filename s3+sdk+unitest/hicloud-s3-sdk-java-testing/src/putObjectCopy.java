@@ -178,10 +178,10 @@ public class putObjectCopy{
     	String dfileName = "world.txt";
     	
 		System.out.println("hello world");
-		//basicPutBucket(sbucketName,sfileName);
+		basicPutBucket(sbucketName,sfileName);
 		basicPutBucket(dbucketName,dfileName);
-		//basicCopyObject(sbucketName,sfileName,dbucketName,dfileName);
-		GeneralCopyObject(sbucketName,sfileName,dbucketName,dfileName); // copy object with headers
+		basicCopyObject(sbucketName,sfileName,dbucketName,dfileName);
+		//GeneralCopyObject(sbucketName,sfileName,dbucketName,dfileName); // copy object with headers
 	}
 		
 }

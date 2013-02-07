@@ -66,6 +66,7 @@ public class MPUSerialTesting{
         writer.write("abcdefghijklmnopqrstuvwxyz\n");
         writer.close();*/
     	String filePath = "D:\\Local Repo\\hicloud-sdk-java-testing\\s3+sdk+unitest\\pic.jpg";
+    	//String filePath = "/mnt/hgfs/file/pic.jpg";
     	File file = new File(filePath);
 
         return file;
@@ -775,7 +776,7 @@ public class MPUSerialTesting{
 		 *      3. UploadPartCopy & parameters
 		 *      4. Abort MPU
 		 */
-		//CopyPart();
+		CopyPart();
 		
 		/* 
 		 * test 1. PutBucket
@@ -783,7 +784,7 @@ public class MPUSerialTesting{
 		 *      3. List MPUs & parameters
 		 *      4. Abort MPU
 		 */
-		ListMPUs(); //ERROR to Fix
+		//ListMPUs(); //ERROR to Fix
 
 		System.gc(); //grabage collection
 		
