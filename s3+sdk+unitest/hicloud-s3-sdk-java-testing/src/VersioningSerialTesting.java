@@ -108,7 +108,18 @@ public class VersioningSerialTesting{
 			SetBucketVersioningConfigurationRequest version = new SetBucketVersioningConfigurationRequest(bucketName,config);
 			s3.setBucketVersioningConfiguration(version);
 			config = s3.getBucketVersioningConfiguration(bucketName);
-		    System.out.println("versioning status:"+config.getStatus());			     
+		    System.out.println("versioning status:"+config.getStatus());	
+		    
+		    VersionListing clear = s3.listVersions(new ListVersionsRequest().withBucketName(bucketName));
+			for(S3VersionSummary s : clear.getVersionSummaries())
+			{
+				System.out.println(s.getBucketName());
+				System.out.println(s.getKey());
+				System.out.println(s.getVersionId());
+				s3.deleteVersion(s.getBucketName(), s.getKey(), s.getVersionId());
+			}
+	        s3.deleteBucket(bucketName);
+	        System.out.println("DONE");
 	        
 		}
 		catch (AmazonServiceException ase) {
@@ -286,17 +297,17 @@ public class VersioningSerialTesting{
 		 * test 1. PutBucketVersioning
 		 *      2. GetBucketVersioning
 		 */
-		basicPutBucketVersioning();
+		//basicPutBucketVersioning();
 		
 		/*
 		 * test 1. GetBucketObjectVersioning 
 		 */
-		basicGetBucketObjectVersioning();
+		//basicGetBucketObjectVersioning();
 		
 		/*
 		 * test 1. GetBucketObjectVersioning-parameters 
 		 */
-		pGetBucketObjectVersions();
+		//pGetBucketObjectVersions();
 		
 		/*
 		 * test 1. DisableBucketVersioning

@@ -170,7 +170,7 @@ public class getObject{
     
     private static void headObject() throws IOException
     {
-		String bucketName="chttest";
+		String bucketName="source";
 		String fileName="hello.txt";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
@@ -505,9 +505,9 @@ public class getObject{
 		//BasicGetObject();
 		//fGetObject();   //with File parameter
 		//vGetObject();     //get object with version id
-		//headObject();
+		headObject();
 		//vHeadObject();
-		PLGetObject(); //with progress listener
+		//PLGetObject(); //with progress listener
 	}
 		
 }
