@@ -37,8 +37,8 @@ public class PolicySerialTesting{
 		
     	AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		       
-	/*	System.out.println("Creating source bucket " + bucketName + "\n");
-        s3.createBucket(bucketName);*/
+		System.out.println("Creating source bucket " + bucketName + "\n");
+        s3.createBucket(bucketName);
         
 		String policy = "{\"Version\": \"2008-10-17\",\"Id\": \"Policy1355909850780\",\"Statement\": [{\"Sid\": \"Stmt1355909849219\",\"Effect\": \"Allow\",\"Principal\": {\"AWS\": \"*\"},\"Action\": \"s3:GetObject\",\"Resource\": \"arn:aws:s3:::source/*\"}]}";
 		

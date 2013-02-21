@@ -303,7 +303,7 @@ public class ACLSerialTesting{
 		 *      2. PutBucketACL with canned ACL 
 		 *      3. GetBucketACL
 		 */
-		//basicPutBucketACL();
+		basicPutBucketACL();
 		
 		/* 
 		 * test 1. PutObjectACL with user defined ACL 
@@ -317,7 +317,7 @@ public class ACLSerialTesting{
 		 *      2. PutObjectACL with canned ACL with vid
 		 *      3. GetObjectACL with vid
 		 */
-		vPutObjectACL();
+		//vPutObjectACL();
 		
 	}
 		

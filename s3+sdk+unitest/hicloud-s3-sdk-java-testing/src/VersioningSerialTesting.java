@@ -57,8 +57,8 @@ public class VersioningSerialTesting{
 		
     	AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		       
-	/*	System.out.println("Creating source bucket " + bucketName + "\n");
-        s3.createBucket(bucketName);*/
+		System.out.println("Creating source bucket " + bucketName + "\n");
+        s3.createBucket(bucketName);
         
     	BucketVersioningConfiguration config = new BucketVersioningConfiguration();
     	
@@ -297,7 +297,7 @@ public class VersioningSerialTesting{
 		 * test 1. PutBucketVersioning
 		 *      2. GetBucketVersioning
 		 */
-		//basicPutBucketVersioning();
+		basicPutBucketVersioning();
 		
 		/*
 		 * test 1. GetBucketObjectVersioning 
@@ -313,7 +313,7 @@ public class VersioningSerialTesting{
 		 * test 1. DisableBucketVersioning
 		 *      2. GetBucketVersioning
 		 */
-		basicDisableBucketVersioning();
+		//basicDisableBucketVersioning();
 	}
 		
 }

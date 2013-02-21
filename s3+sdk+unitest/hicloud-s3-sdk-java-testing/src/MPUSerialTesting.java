@@ -65,8 +65,8 @@ public class MPUSerialTesting{
         writer.write("01234567890112345678901234\n");
         writer.write("abcdefghijklmnopqrstuvwxyz\n");
         writer.close();*/
-    	String filePath = "D:\\Local Repo\\hicloud-sdk-java-testing\\s3+sdk+unitest\\pic.jpg";
-    	//String filePath = "/mnt/hgfs/file/pic.jpg";
+    	//String filePath = "D:\\Local Repo\\hicloud-sdk-java-testing\\s3+sdk+unitest\\pic.jpg";
+    	String filePath = "/mnt/hgfs/file/pic.jpg";
     	File file = new File(filePath);
 
         return file;

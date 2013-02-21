@@ -164,7 +164,7 @@ public class BucketLoggingSerialTesting{
 		/* 
 		 * set target bucket acl
 		 */
-		//basicPutBucketandACL(); 
+		basicPutBucketandACL(); 
 		
 		/*
 		 * test 1. PutBucketLogging 
@@ -176,7 +176,7 @@ public class BucketLoggingSerialTesting{
 		 * test 1. DisableBucketLogging
 		 * 		2. GetBucketLogging
 		 */
-		basicDisableBucketLogging();
+		//basicDisableBucketLogging();
 		
 	}
 		
