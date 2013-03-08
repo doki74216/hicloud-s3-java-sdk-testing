@@ -59,6 +59,11 @@ public class PolicySerialTesting{
 	        System.out.println(depolicy.getPolicyText());
 	        System.out.println();
 	        
+	      //teardown        
+	        System.out.println("Deleting bucket " + bucketName + "\n");
+	        s3.deleteBucket(bucketName);
+	        
+	        
 		}
 		catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which means your request made it "

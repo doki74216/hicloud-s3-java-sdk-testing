@@ -53,7 +53,10 @@ public class BucketLoggingSerialTesting{
 			acl.grantPermission(GroupGrantee.LogDelivery, Permission.ReadAcp);
 			acl.grantPermission(GroupGrantee.LogDelivery, Permission.Write);
 			acl.grantPermission(new CanonicalGrantee("canonicalidhrchu"), Permission.FullControl);
-			s3.setBucketAcl(bucketName2, acl);          
+			s3.setBucketAcl(bucketName2, acl);     
+			
+			
+			
 		}
 		catch (AmazonServiceException ase) {
 			System.out.println("Caught an AmazonServiceException, which means your request made it "
@@ -156,6 +159,39 @@ public class BucketLoggingSerialTesting{
         }
     }
     
+    private static void BasicDeleteBucket() throws IOException
+	{
+		System.out.println("basic get bucket");
+		
+    	String bucketName="source";	
+    	String bucketName2="target";
+		
+		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
+		try
+		{
+			System.out.println("Deleting source bucket " + bucketName + "\n");
+	        s3.deleteBucket(bucketName);
+	        
+	        System.out.println("Deleting target bucket " + bucketName2 + "\n");
+	        s3.deleteBucket(bucketName2);
+
+		}
+		catch (AmazonServiceException ase) {
+	        System.out.println("Caught an AmazonServiceException, which means your request made it "
+	                + "to Amazon S3, but was rejected with an error response for some reason.");
+	        System.out.println("Error Message:    " + ase.getMessage());
+	        System.out.println("HTTP Status Code: " + ase.getStatusCode());
+	        System.out.println("AWS Error Code:   " + ase.getErrorCode());
+	        System.out.println("Error Type:       " + ase.getErrorType());
+	        System.out.println("Request ID:       " + ase.getRequestId());
+	    } catch (AmazonClientException ace) {
+	        System.out.println("Caught an AmazonClientException, which means the client encountered "
+	                + "a serious internal problem while trying to communicate with S3, "
+	                + "such as not being able to access the network.");
+	        System.out.println("Error Message: " + ace.getMessage());
+	    }
+	}
+    
     
     public static void main(String args[]) throws IOException
 	{
@@ -176,7 +212,10 @@ public class BucketLoggingSerialTesting{
 		 * test 1. DisableBucketLogging
 		 * 		2. GetBucketLogging
 		 */
-		//basicDisableBucketLogging();
+		basicDisableBucketLogging();
+		
+		//teardown
+		BasicDeleteBucket();
 		
 	}
 		

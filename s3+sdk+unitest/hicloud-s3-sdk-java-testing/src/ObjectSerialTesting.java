@@ -104,6 +104,9 @@ public class ObjectSerialTesting{
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		
+		System.out.println("Creating source bucket " + bucketName + "\n");
+        s3.createBucket(bucketName);
+		
 		try
 		{
 			System.out.println("basic put object");
@@ -134,9 +137,14 @@ public class ObjectSerialTesting{
             displayTextInputStream(object.getObjectContent());
             System.out.println();	
             
+            
+            //teardown
             System.out.println("Deleting object " + fileName + "\n");
 	        s3.deleteObject(bucketName, fileName);
-			
+	        
+	        System.out.println("Deleting bucket " + bucketName + "\n");
+	        s3.deleteBucket(bucketName);
+	                			
 		}
 		catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which means your request made it "
@@ -167,8 +175,8 @@ public class ObjectSerialTesting{
 			
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		
-		//System.out.println("Creating source bucket " + bucketName + "\n");
-        //s3.createBucket(bucketName);
+		System.out.println("Creating source bucket " + bucketName + "\n");
+        s3.createBucket(bucketName);
         
 		try
 		{
@@ -196,6 +204,13 @@ public class ObjectSerialTesting{
             System.out.println("ETag: "  + object.getETag());          
             System.out.println();
             
+          //teardown
+            System.out.println("Deleting object " + fileName + "\n");
+	        s3.deleteObject(bucketName, fileName);
+	        
+	        System.out.println("Deleting bucket " + bucketName + "\n");
+	        s3.deleteBucket(bucketName);
+            
 		}
 		catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which means your request made it "
@@ -211,6 +226,8 @@ public class ObjectSerialTesting{
                     + "such as not being able to access the network.");
             System.out.println("Error Message: " + ace.getMessage());
         }
+		
+		
     }
     
     private static void BasicCopyObject() throws IOException
@@ -233,6 +250,12 @@ public class ObjectSerialTesting{
 		date2.setDate(date2.getDate());
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
+		
+		System.out.println("Creating source bucket(source) " + sbucketName + "\n");
+        s3.createBucket(sbucketName);
+        
+        System.out.println("Creating source bucket(dest) " + dbucketName + "\n");
+        s3.createBucket(dbucketName);
 		
 		s3.putObject(sbucketName, sfileName, createSampleFile());
 		
@@ -261,6 +284,19 @@ public class ObjectSerialTesting{
             System.out.println(result2.getETag());
             System.out.println(result2.getLastModifiedDate());
             
+            //teardown
+            System.out.println("Deleting object(source) " + sfileName + "\n");
+	        s3.deleteObject(sbucketName, sfileName);
+	        
+	        System.out.println("Deleting bucket(source) " + sbucketName + "\n");
+	        s3.deleteBucket(sbucketName);
+            
+            System.out.println("Deleting object(dest) " + dfileName + "\n");
+	        s3.deleteObject(dbucketName, dfileName);
+	        
+	        System.out.println("Deleting bucket(dest) " + dbucketName + "\n");
+	        s3.deleteBucket(dbucketName);
+	        
 		}
 		catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which means your request made it "
@@ -276,7 +312,64 @@ public class ObjectSerialTesting{
                     + "such as not being able to access the network.");
             System.out.println("Error Message: " + ace.getMessage());
         }
-    }   
+    } 
+    
+    private static void BasicDeleteObject() throws IOException
+	{		
+    	String bucketName="source";	
+    	String fileName="hello.txt";
+		
+		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
+		try
+		{
+			System.out.println("Deleting object " + fileName + "\n");
+	        s3.deleteObject(bucketName, fileName);
+
+		}
+		catch (AmazonServiceException ase) {
+	        System.out.println("Caught an AmazonServiceException, which means your request made it "
+	                + "to Amazon S3, but was rejected with an error response for some reason.");
+	        System.out.println("Error Message:    " + ase.getMessage());
+	        System.out.println("HTTP Status Code: " + ase.getStatusCode());
+	        System.out.println("AWS Error Code:   " + ase.getErrorCode());
+	        System.out.println("Error Type:       " + ase.getErrorType());
+	        System.out.println("Request ID:       " + ase.getRequestId());
+	    } catch (AmazonClientException ace) {
+	        System.out.println("Caught an AmazonClientException, which means the client encountered "
+	                + "a serious internal problem while trying to communicate with S3, "
+	                + "such as not being able to access the network.");
+	        System.out.println("Error Message: " + ace.getMessage());
+	    }
+	}
+    
+    private static void BasicDeleteBucket() throws IOException
+	{
+		System.out.println("basic get bucket");
+		
+    	String bucketName="source";	
+		
+		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
+		try
+		{
+			System.out.println("Deleting bucket " + bucketName + "\n");
+	        s3.deleteBucket(bucketName);
+
+		}
+		catch (AmazonServiceException ase) {
+	        System.out.println("Caught an AmazonServiceException, which means your request made it "
+	                + "to Amazon S3, but was rejected with an error response for some reason.");
+	        System.out.println("Error Message:    " + ase.getMessage());
+	        System.out.println("HTTP Status Code: " + ase.getStatusCode());
+	        System.out.println("AWS Error Code:   " + ase.getErrorCode());
+	        System.out.println("Error Type:       " + ase.getErrorType());
+	        System.out.println("Request ID:       " + ase.getRequestId());
+	    } catch (AmazonClientException ace) {
+	        System.out.println("Caught an AmazonClientException, which means the client encountered "
+	                + "a serious internal problem while trying to communicate with S3, "
+	                + "such as not being able to access the network.");
+	        System.out.println("Error Message: " + ace.getMessage());
+	    }
+	}
     
     public static void main(String args[]) throws IOException
 	{
@@ -287,19 +380,21 @@ public class ObjectSerialTesting{
 		 *      2. Get Object
 		 *      3. Delete Object
 		 */
-		//basicPutObject();
+		basicPutObject();	
 		
 		/*
 		 * test 1. Put Object + Metadata
 		 *      2. Head Object
 		 */
-		//mBasicPutObjectandhead();
+		mBasicPutObjectandhead();
 		
 		/*
 		 * test 1. Copy Object 
 		 */
 		BasicCopyObject();
 		
+		//BasicDeleteBucket();
+		//BasicDeleteObject();
 	}
 		
 }

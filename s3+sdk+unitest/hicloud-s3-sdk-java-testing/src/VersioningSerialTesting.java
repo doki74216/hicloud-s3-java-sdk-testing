@@ -94,9 +94,7 @@ public class VersioningSerialTesting{
     	String bucketName="source";	
 		
     	AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
-		       
-	/*	System.out.println("Creating source bucket " + bucketName + "\n");
-        s3.createBucket(bucketName);*/
+
         
     	BucketVersioningConfiguration config = new BucketVersioningConfiguration();
     	
@@ -118,8 +116,10 @@ public class VersioningSerialTesting{
 				System.out.println(s.getVersionId());
 				s3.deleteVersion(s.getBucketName(), s.getKey(), s.getVersionId());
 			}
-	        s3.deleteBucket(bucketName);
-	        System.out.println("DONE");
+	        
+			//teardown
+			 System.out.println("Deleting bucket " + bucketName + "\n");
+		     s3.deleteBucket(bucketName);
 	        
 		}
 		catch (AmazonServiceException ase) {
@@ -146,14 +146,14 @@ public class VersioningSerialTesting{
     	
     	AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		       
-	/*	System.out.println("Creating source bucket " + bucketName + "\n");
-        s3.createBucket(bucketName);*/
+		System.out.println("Creating source bucket " + bucketName + "\n");
+        s3.createBucket(bucketName);
         
     		
 		try
 		{
-		/*	System.out.println("Uploading a new object to S3 from a file\n");
-			s3.putObject(bucketName, fileName, createSampleFile());*/
+			System.out.println("Uploading a new object to S3 from a file\n");
+			s3.putObject(bucketName, fileName, createSampleFile());
 			
 			System.out.println("basic get bucket object versioning");			
 			VersionListing result = s3.listVersions(bucketName, fileName);
@@ -270,7 +270,7 @@ public class VersioningSerialTesting{
 				System.out.println(s.getVersionId());
 				System.out.println();
 			}
-			
+						
 	    }
 		catch (AmazonServiceException ase) {
 			System.out.println("Caught an AmazonServiceException, which means your request made it "
@@ -289,6 +289,63 @@ public class VersioningSerialTesting{
 	}
 	
 	
+	private static void BasicDeleteBucket() throws IOException
+	{
+		System.out.println("basic get bucket");
+		
+		String bucketName="source";
+		
+		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
+		try
+		{
+			System.out.println("Deleting bucket " + bucketName + "\n");
+	        s3.deleteBucket(bucketName);
+
+		}
+		catch (AmazonServiceException ase) {
+	        System.out.println("Caught an AmazonServiceException, which means your request made it "
+	                + "to Amazon S3, but was rejected with an error response for some reason.");
+	        System.out.println("Error Message:    " + ase.getMessage());
+	        System.out.println("HTTP Status Code: " + ase.getStatusCode());
+	        System.out.println("AWS Error Code:   " + ase.getErrorCode());
+	        System.out.println("Error Type:       " + ase.getErrorType());
+	        System.out.println("Request ID:       " + ase.getRequestId());
+	    } catch (AmazonClientException ace) {
+	        System.out.println("Caught an AmazonClientException, which means the client encountered "
+	                + "a serious internal problem while trying to communicate with S3, "
+	                + "such as not being able to access the network.");
+	        System.out.println("Error Message: " + ace.getMessage());
+	    }
+	}
+	
+	private static void BasicDeleteObject() throws IOException
+	{		
+		String bucketName = "source";
+		String fileName="photos/2006/January/sample.jpg";
+		
+		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
+		try
+		{
+			System.out.println("Deleting object " + fileName + "\n");
+	        s3.deleteObject(bucketName, fileName);
+
+		}
+		catch (AmazonServiceException ase) {
+	        System.out.println("Caught an AmazonServiceException, which means your request made it "
+	                + "to Amazon S3, but was rejected with an error response for some reason.");
+	        System.out.println("Error Message:    " + ase.getMessage());
+	        System.out.println("HTTP Status Code: " + ase.getStatusCode());
+	        System.out.println("AWS Error Code:   " + ase.getErrorCode());
+	        System.out.println("Error Type:       " + ase.getErrorType());
+	        System.out.println("Request ID:       " + ase.getRequestId());
+	    } catch (AmazonClientException ace) {
+	        System.out.println("Caught an AmazonClientException, which means the client encountered "
+	                + "a serious internal problem while trying to communicate with S3, "
+	                + "such as not being able to access the network.");
+	        System.out.println("Error Message: " + ace.getMessage());
+	    }
+	}
+	
     public static void main(String args[]) throws IOException
 	{
 		System.out.println("hello world");
@@ -297,23 +354,26 @@ public class VersioningSerialTesting{
 		 * test 1. PutBucketVersioning
 		 *      2. GetBucketVersioning
 		 */
-		basicPutBucketVersioning();
-		
-		/*
-		 * test 1. GetBucketObjectVersioning 
-		 */
-		//basicGetBucketObjectVersioning();
-		
-		/*
-		 * test 1. GetBucketObjectVersioning-parameters 
-		 */
-		//pGetBucketObjectVersions();
+		//basicPutBucketVersioning();
 		
 		/*
 		 * test 1. DisableBucketVersioning
 		 *      2. GetBucketVersioning
 		 */
 		//basicDisableBucketVersioning();
+		
+		/*
+		 * test 1. GetBucketObjectVersioning 
+		 */
+		basicGetBucketObjectVersioning();
+				
+		/*
+		 * test 1. GetBucketObjectVersioning-parameters 
+		 */
+		pGetBucketObjectVersions();
+     	BasicDeleteObject();
+     	BasicDeleteBucket();
+		
 	}
 		
 }
