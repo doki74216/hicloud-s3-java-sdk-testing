@@ -637,7 +637,7 @@ public class MPUSerialTesting{
 				count++;
 				System.out.println("count: "+ count);
 				System.out.println(s.getKey());
-				//System.out.println(s.getUploadId());
+				System.out.println(s.getUploadId());
 			}
 	        System.out.println();
 	    }
@@ -660,7 +660,7 @@ public class MPUSerialTesting{
 	
 	private static void ListMPUs() throws IOException
 	{
-		String bucketName="chttest2";
+		String bucketName="chttestg";
 		String fileName1="photos/2006/January/sample.jpg";
 		String fileName2="photos/2006/February/sample.jpg"; 
 		String fileName3="photos/2006/March/sample.jpg"; 
@@ -705,8 +705,9 @@ public class MPUSerialTesting{
 				System.out.println("ERROR!!!\n List MPUs (KeyMarker + MaxUpload) Error \n");
 			}
 			
-			count = MarkerListMPUs(bucketName, UploadID1); //Upload ID Marker
-			if(count!=3)
+			count = MarkerListMPUs(bucketName, UploadID3); //Upload ID Marker
+			System.out.println("counter: "+ count);
+			if(count!=2)
 			{
 				System.out.println("ERROR!!!\n List MPUs (Upload ID Marker) Error \n");
 				System.out.println("ERROR!!!\n Wait To FIX!! \n");
@@ -768,7 +769,7 @@ public class MPUSerialTesting{
 		 *      4. basic ListParts + Parameters: maxPart & partNumberMarker
 		 *      5. Complete MPU 
 		 */
-		CompleteMPU();
+		//CompleteMPU();
 		
 		/* 
 		 * test 1. PutBucket
@@ -784,7 +785,7 @@ public class MPUSerialTesting{
 		 *      3. List MPUs & parameters
 		 *      4. Abort MPU
 		 */
-		//ListMPUs(); //ERROR to Fix
+		ListMPUs(); //ERROR to Fix
 
 		System.gc(); //grabage collection
 		

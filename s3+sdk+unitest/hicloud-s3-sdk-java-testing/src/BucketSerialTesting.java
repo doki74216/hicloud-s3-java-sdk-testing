@@ -318,12 +318,12 @@ public class BucketSerialTesting{
 		 * test 1. bucket with Canned ACL & normal put bucket
 		 *      2. Normal GetBucket
 		 */
-		//ACLPutBucket();
+		ACLPutBucket();
 		
 		/*
 		 * test 1. GetBucket with parameters
 		 */
-		//ParameterPutBucket();
+		ParameterPutBucket();
 		
 	}
 		
