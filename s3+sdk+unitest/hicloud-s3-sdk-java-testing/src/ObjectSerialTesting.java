@@ -232,8 +232,8 @@ public class ObjectSerialTesting{
     
     private static void BasicCopyObject() throws IOException
     {
-    	String sbucketName = "source";
-    	String dbucketName = "target";
+    	String sbucketName = "source55";
+    	String dbucketName = "target55";
     	String sfileName = "hello.txt";
     	String dfileName = "hello.txt";
     	StorageClass storageClass = null;
@@ -380,21 +380,22 @@ public class ObjectSerialTesting{
 		 *      2. Get Object
 		 *      3. Delete Object
 		 */
-		basicPutObject();	
+		//basicPutObject();	
 		
 		/*
 		 * test 1. Put Object + Metadata
 		 *      2. Head Object
 		 */
-		mBasicPutObjectandhead();
+		//mBasicPutObjectandhead();
 		
 		/*
 		 * test 1. Copy Object 
 		 */
 		BasicCopyObject();
 		
-		//BasicDeleteBucket();
-		//BasicDeleteObject();
+		BasicDeleteObject();
+		BasicDeleteBucket();
+		
 	}
 		
 }

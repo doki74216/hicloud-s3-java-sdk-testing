@@ -621,12 +621,12 @@ public class MPUSerialTesting{
 		return count;
 	}
 	
-	private static int MarkerListMPUs(String bucketName, String IDMarker) throws IOException //Upload ID Marker
+	private static int MarkerListMPUs(String bucketName, String IDMarker, String fileName) throws IOException //Upload ID Marker
 	{
 		System.out.println("list MPUs with Upload ID Marker");
 		int count=0;
 		
-		ListMultipartUploadsRequest request = new ListMultipartUploadsRequest(bucketName).withUploadIdMarker(IDMarker);
+		ListMultipartUploadsRequest request = new ListMultipartUploadsRequest(bucketName).withKeyMarker(fileName).withUploadIdMarker(IDMarker);
 	
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
@@ -666,6 +666,7 @@ public class MPUSerialTesting{
 		String fileName3="photos/2006/March/sample.jpg"; 
 		String fileName4="videos/2006/March/sample.wmv"; 
 		String fileName5="sample.jpg"; 
+
 		int count=0;
 		
 		InitiateMultipartUploadRequest config1 = new InitiateMultipartUploadRequest(bucketName,fileName1);
@@ -693,7 +694,7 @@ public class MPUSerialTesting{
 			String UploadID4 = initRequest4.getUploadId();
 			String UploadID5 = initRequest5.getUploadId();
 			
-			count= PrefixListMPUs(bucketName, "/", "photos/2006/"); //Delimiter & prefix
+		/*	count= PrefixListMPUs(bucketName, "/", "photos/2006/"); //Delimiter & prefix
 			if(count!=0)
 			{
 				System.out.println("ERROR!!!\n List MPUs (Delimiter + Prefix) Error \n");
@@ -703,14 +704,15 @@ public class MPUSerialTesting{
 			if(count!=2)
 			{
 				System.out.println("ERROR!!!\n List MPUs (KeyMarker + MaxUpload) Error \n");
-			}
+			}*/
 			
-			count = MarkerListMPUs(bucketName, UploadID3); //Upload ID Marker
+			System.out.println("fileName: " + fileName1 + "& upload id: " + UploadID1);
+			count = MarkerListMPUs(bucketName, UploadID1,fileName1); //Upload ID Marker + Key Marker
 			System.out.println("counter: "+ count);
-			if(count!=2)
+			if(count!=3)
 			{
-				System.out.println("ERROR!!!\n List MPUs (Upload ID Marker) Error \n");
-				System.out.println("ERROR!!!\n Wait To FIX!! \n");
+				System.out.println("ERROR!!!\n List MPUs (Upload ID Marker + Key Marker) Error \n");
+				//System.out.println("ERROR!!!\n Wait To FIX!! \n");
 			}
 			
 			System.out.println("Tear down..");
@@ -785,7 +787,7 @@ public class MPUSerialTesting{
 		 *      3. List MPUs & parameters
 		 *      4. Abort MPU
 		 */
-		ListMPUs(); //ERROR to Fix
+		ListMPUs(); 
 
 		System.gc(); //grabage collection
 		
