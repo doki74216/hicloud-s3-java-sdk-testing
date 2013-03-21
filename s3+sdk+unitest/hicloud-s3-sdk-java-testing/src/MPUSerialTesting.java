@@ -622,12 +622,12 @@ public class MPUSerialTesting{
 		return count;
 	}
 	
-	private static int MarkerListMPUs(String bucketName, String IDMarker) throws IOException //Upload ID Marker
+	private static int MarkerListMPUs(String bucketName, String IDMarker, String fileName) throws IOException //Upload ID Marker
 	{
 		System.out.println("list MPUs with Upload ID Marker");
 		int count=0;
 		
-		ListMultipartUploadsRequest request = new ListMultipartUploadsRequest(bucketName).withUploadIdMarker(IDMarker);
+		ListMultipartUploadsRequest request = new ListMultipartUploadsRequest(bucketName).withKeyMarker(fileName).withUploadIdMarker(IDMarker);
 	
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
@@ -638,7 +638,7 @@ public class MPUSerialTesting{
 				count++;
 				System.out.println("count: "+ count);
 				System.out.println(s.getKey());
-				//System.out.println(s.getUploadId());
+				System.out.println(s.getUploadId());
 			}
 	        System.out.println();
 	    }
@@ -661,12 +661,13 @@ public class MPUSerialTesting{
 	
 	private static void ListMPUs() throws IOException
 	{
-		String bucketName="chttest2";
+		String bucketName="chttestg";
 		String fileName1="photos/2006/January/sample.jpg";
 		String fileName2="photos/2006/February/sample.jpg"; 
 		String fileName3="photos/2006/March/sample.jpg"; 
 		String fileName4="videos/2006/March/sample.wmv"; 
 		String fileName5="sample.jpg"; 
+
 		int count=0;
 		
 		InitiateMultipartUploadRequest config1 = new InitiateMultipartUploadRequest(bucketName,fileName1);
@@ -694,7 +695,7 @@ public class MPUSerialTesting{
 			String UploadID4 = initRequest4.getUploadId();
 			String UploadID5 = initRequest5.getUploadId();
 			
-			count= PrefixListMPUs(bucketName, "/", "photos/2006/"); //Delimiter & prefix
+		/*	count= PrefixListMPUs(bucketName, "/", "photos/2006/"); //Delimiter & prefix
 			if(count!=0)
 			{
 				System.out.println("ERROR!!!\n List MPUs (Delimiter + Prefix) Error \n");
@@ -704,13 +705,15 @@ public class MPUSerialTesting{
 			if(count!=2)
 			{
 				System.out.println("ERROR!!!\n List MPUs (KeyMarker + MaxUpload) Error \n");
-			}
+			}*/
 			
-			count = MarkerListMPUs(bucketName, UploadID1); //Upload ID Marker
+			System.out.println("fileName: " + fileName1 + "& upload id: " + UploadID1);
+			count = MarkerListMPUs(bucketName, UploadID1,fileName1); //Upload ID Marker + Key Marker
+			System.out.println("counter: "+ count);
 			if(count!=3)
 			{
-				System.out.println("ERROR!!!\n List MPUs (Upload ID Marker) Error \n");
-				System.out.println("ERROR!!!\n Wait To FIX!! \n");
+				System.out.println("ERROR!!!\n List MPUs (Upload ID Marker + Key Marker) Error \n");
+				//System.out.println("ERROR!!!\n Wait To FIX!! \n");
 			}
 			
 			System.out.println("Tear down..");
@@ -760,7 +763,7 @@ public class MPUSerialTesting{
 		 *      3. UploadParts 
 		 *      4. basic ListParts
 		 */
-		AbortMPU();
+		//AbortMPU();
 		
 		/* 
 		 * test 1. PutBucket
@@ -769,7 +772,7 @@ public class MPUSerialTesting{
 		 *      4. basic ListParts + Parameters: maxPart & partNumberMarker
 		 *      5. Complete MPU 
 		 */
-		CompleteMPU();
+		//CompleteMPU();
 		
 		/* 
 		 * test 1. PutBucket
@@ -777,7 +780,7 @@ public class MPUSerialTesting{
 		 *      3. UploadPartCopy & parameters
 		 *      4. Abort MPU
 		 */
-		CopyPart();
+		//CopyPart();
 		
 		/* 
 		 * test 1. PutBucket
@@ -785,7 +788,8 @@ public class MPUSerialTesting{
 		 *      3. List MPUs & parameters
 		 *      4. Abort MPU
 		 */
-		ListMPUs(); //ERROR to Fix
+
+		ListMPUs(); 
 
 		System.gc(); //grabage collection
 		

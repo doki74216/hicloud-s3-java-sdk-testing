@@ -99,16 +99,16 @@ public class ObjectSerialTesting{
     
     private static void basicPutObject() throws IOException
     {
-    	String bucketName="source";	
-    	String fileName="hi.txt";
+    	String bucketName="chttest1";	
+    	String fileName="hello.txt";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		
-		System.out.println("Creating source bucket " + bucketName + "\n");
-        s3.createBucket(bucketName);
-		
 		try
 		{
+			System.out.println("Creating bucket " + bucketName + "\n");
+	        s3.createBucket(bucketName);
+	        
 			System.out.println("basic put object");
 			PutObjectRequest request = new PutObjectRequest(bucketName, fileName, createSampleFile());
             request.withProgressListener(new ProgressListener() {
@@ -144,6 +144,8 @@ public class ObjectSerialTesting{
 	        
 	        System.out.println("Deleting bucket " + bucketName + "\n");
 	        s3.deleteBucket(bucketName);
+	        
+	        System.out.println("DONE");
 	                			
 		}
 		catch (AmazonServiceException ase) {
@@ -166,7 +168,7 @@ public class ObjectSerialTesting{
 	private static void mBasicPutObjectandhead() throws IOException
     {
    	
-		String bucketName="source";
+		String bucketName="chttest1";
 		String fileName="hello.txt";
 		CannedAccessControlList cannedAcl = null;
 		StorageClass storageClass = null;
@@ -211,6 +213,7 @@ public class ObjectSerialTesting{
 	        System.out.println("Deleting bucket " + bucketName + "\n");
 	        s3.deleteBucket(bucketName);
             
+	        System.out.println("DONE");
 		}
 		catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which means your request made it "
@@ -232,8 +235,8 @@ public class ObjectSerialTesting{
     
     private static void BasicCopyObject() throws IOException
     {
-    	String sbucketName = "source";
-    	String dbucketName = "target";
+    	String sbucketName = "chttest1";
+    	String dbucketName = "chttest2";
     	String sfileName = "hello.txt";
     	String dfileName = "hello.txt";
     	StorageClass storageClass = null;
@@ -297,6 +300,8 @@ public class ObjectSerialTesting{
 	        System.out.println("Deleting bucket(dest) " + dbucketName + "\n");
 	        s3.deleteBucket(dbucketName);
 	        
+	        System.out.println("DONE");
+	        
 		}
 		catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which means your request made it "
@@ -316,14 +321,23 @@ public class ObjectSerialTesting{
     
     private static void BasicDeleteObject() throws IOException
 	{		
-    	String bucketName="source";	
-    	String fileName="hi.txt";
+
+    	//String bucketName="source";	
+    	//String fileName="hi.txt";
+
+    	String bucketName="chttest1";	
+    	String bucketName2="chttest2";	
+    	String fileName="hello.txt";
+
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
 		{
-			System.out.println("Deleting object " + fileName + "\n");
+			System.out.println("Deleting object(source) " + fileName + "\n");
 	        s3.deleteObject(bucketName, fileName);
+	        
+			System.out.println("Deleting object(dest) " + fileName + "\n");
+	        s3.deleteObject(bucketName2, fileName);
 
 		}
 		catch (AmazonServiceException ase) {
@@ -344,15 +358,18 @@ public class ObjectSerialTesting{
     
     private static void BasicDeleteBucket() throws IOException
 	{
-		System.out.println("basic get bucket");
+		System.out.println("basic delete bucket");
 		
-    	String bucketName="source";	
+    	String bucketName="chttest1";	
+    	String bucketName2="chttest2";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
 		{
-			System.out.println("Deleting bucket " + bucketName + "\n");
+			System.out.println("Deleting bucket(source) " + bucketName + "\n");
 	        s3.deleteBucket(bucketName);
+			System.out.println("Deleting bucket(dest) " + bucketName2 + "\n");
+	        s3.deleteBucket(bucketName2);
 
 		}
 		catch (AmazonServiceException ase) {
@@ -392,6 +409,9 @@ public class ObjectSerialTesting{
 		 * test 1. Copy Object 
 		 */
 		BasicCopyObject();
+		
+		//BasicDeleteObject();
+		//BasicDeleteBucket();
 		
 		System.out.println("ObjectSerialTest Over");
 	}
