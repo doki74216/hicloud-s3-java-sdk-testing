@@ -37,7 +37,7 @@ public class getBucket{
 	{
 		System.out.println("basic get bucket");
 		
-		String bucketName="chttest";
+		String bucketName="source";
 		String fileName="content.txt";
 		String fileName2="context.txt";
 		String fileName3="apple.txt";
@@ -224,7 +224,7 @@ public class getBucket{
 	public static void main(String args[]) throws IOException
 	{
 		System.out.println("hello world");
-		//basicGetBucket();
+		basicGetBucket();
 		//pBasicGetBucket(); 
 		//GenericGetBucket(); //with prefix
 	}

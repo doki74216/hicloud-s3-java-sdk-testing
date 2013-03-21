@@ -94,8 +94,7 @@ public class VersioningSerialTesting{
     	String bucketName="source";	
 		
     	AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
-
-        
+       
     	BucketVersioningConfiguration config = new BucketVersioningConfiguration();
     	
 		
@@ -149,9 +148,17 @@ public class VersioningSerialTesting{
 		System.out.println("Creating source bucket " + bucketName + "\n");
         s3.createBucket(bucketName);
         
-    		
+        BucketVersioningConfiguration config = new BucketVersioningConfiguration();
+        
 		try
 		{
+			System.out.println("basic enabled bucket versioning");
+			config.setStatus("Enabled");
+			SetBucketVersioningConfigurationRequest version = new SetBucketVersioningConfigurationRequest(bucketName,config);
+			s3.setBucketVersioningConfiguration(version);
+			config = s3.getBucketVersioningConfiguration(bucketName);
+		    System.out.println("versioning status:"+config.getStatus());			
+			
 			System.out.println("Uploading a new object to S3 from a file\n");
 			s3.putObject(bucketName, fileName, createSampleFile());
 			
@@ -165,7 +172,8 @@ public class VersioningSerialTesting{
 				System.out.println("FileSize:"+s.getSize());
 				System.out.println("VersionId:"+s.getVersionId());
 			}
-	        System.out.println();			     
+	        System.out.println();		
+
 	        
 		}
 		catch (AmazonServiceException ase) {
@@ -258,9 +266,10 @@ public class VersioningSerialTesting{
 				System.out.println();
 			}
 			
+			
 			//version id marker & key marker
-			System.out.println("get bucket versions Version-ID-MArker & key-marker");
-			result = s3.listVersions(new ListVersionsRequest().withBucketName(bucketName).withKeyMarker("hello.txt").withVersionIdMarker("2d856447132d4903bc3d3e202abd2398"));
+			/*System.out.println("get bucket versions Version-ID-MArker & key-marker");
+			result = s3.listVersions(new ListVersionsRequest().withBucketName(bucketName).withKeyMarker("hello.txt").withVersionIdMarker("fb5c2d5ddd8c47dbabfaf7f540d42d34"));
 			for(S3VersionSummary s : result.getVersionSummaries())
 			{
 				System.out.println(s.getBucketName());
@@ -269,7 +278,7 @@ public class VersioningSerialTesting{
 				System.out.println(s.getSize());
 				System.out.println(s.getVersionId());
 				System.out.println();
-			}
+			}*/
 						
 	    }
 		catch (AmazonServiceException ase) {
@@ -298,6 +307,7 @@ public class VersioningSerialTesting{
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
 		{
+				
 			System.out.println("Deleting bucket " + bucketName + "\n");
 	        s3.deleteBucket(bucketName);
 
@@ -318,16 +328,33 @@ public class VersioningSerialTesting{
 	    }
 	}
 	
-	private static void BasicDeleteObject() throws IOException
+	private static void vBasicDeleteObject() throws IOException
 	{		
-		String bucketName = "source";
-		String fileName="photos/2006/January/sample.jpg";
+		String bucketName="source";	
+    	String fileName="photos/2006/January/sample.jpg";
+		String vid = "c6a49d69aa724bb7a7bbbf57821a8ac8"; 
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
 		{
-			System.out.println("Deleting object " + fileName + "\n");
-	        s3.deleteObject(bucketName, fileName);
+			
+            System.out.println("get all bucket versions");
+			VersionListing result = s3.listVersions(new ListVersionsRequest().withBucketName(bucketName));
+			for(S3VersionSummary s : result.getVersionSummaries())
+			{
+				System.out.println("BucketName:"+s.getBucketName());
+				System.out.println("VersionId:"+s.getVersionId());
+				String devid = s.getVersionId();
+				
+				System.out.println("Deleting object " + fileName +" with vid \n");
+		        s3.deleteVersion(bucketName, fileName,devid);
+				
+				System.out.println();
+			}
+			
+			
+		/*	System.out.println("Deleting object " + fileName +" with vid \n");
+	        s3.deleteVersion(bucketName, fileName,vid);*/
 
 		}
 		catch (AmazonServiceException ase) {
@@ -354,13 +381,13 @@ public class VersioningSerialTesting{
 		 * test 1. PutBucketVersioning
 		 *      2. GetBucketVersioning
 		 */
-		//basicPutBucketVersioning();
+		basicPutBucketVersioning();
 		
 		/*
 		 * test 1. DisableBucketVersioning
 		 *      2. GetBucketVersioning
 		 */
-		//basicDisableBucketVersioning();
+		basicDisableBucketVersioning();
 		
 		/*
 		 * test 1. GetBucketObjectVersioning 
@@ -371,8 +398,11 @@ public class VersioningSerialTesting{
 		 * test 1. GetBucketObjectVersioning-parameters 
 		 */
 		pGetBucketObjectVersions();
-     	BasicDeleteObject();
+     	
+		vBasicDeleteObject();
      	BasicDeleteBucket();
+     	
+     	System.out.println("VersioningSerialTest Over");
 		
 	}
 		

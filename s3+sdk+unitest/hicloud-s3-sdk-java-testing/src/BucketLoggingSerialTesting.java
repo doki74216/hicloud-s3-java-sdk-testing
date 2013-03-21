@@ -217,6 +217,8 @@ public class BucketLoggingSerialTesting{
 		//teardown
 		BasicDeleteBucket();
 		
+		System.out.println("BucketLoggingSerialTest Over");
+		
 	}
 		
 }

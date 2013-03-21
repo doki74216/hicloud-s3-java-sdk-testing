@@ -317,7 +317,7 @@ public class ObjectSerialTesting{
     private static void BasicDeleteObject() throws IOException
 	{		
     	String bucketName="source";	
-    	String fileName="hello.txt";
+    	String fileName="hi.txt";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
@@ -380,21 +380,20 @@ public class ObjectSerialTesting{
 		 *      2. Get Object
 		 *      3. Delete Object
 		 */
-		basicPutObject();	
+		//basicPutObject();	
 		
 		/*
 		 * test 1. Put Object + Metadata
 		 *      2. Head Object
 		 */
-		mBasicPutObjectandhead();
+		//mBasicPutObjectandhead();
 		
 		/*
 		 * test 1. Copy Object 
 		 */
 		BasicCopyObject();
 		
-		//BasicDeleteBucket();
-		//BasicDeleteObject();
+		System.out.println("ObjectSerialTest Over");
 	}
 		
 }

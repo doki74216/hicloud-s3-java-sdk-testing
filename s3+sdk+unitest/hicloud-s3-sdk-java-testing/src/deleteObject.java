@@ -36,7 +36,7 @@ public class deleteObject{
     {
     	System.out.println("basic put bucket");
     	
-		String bucketName="chttest";
+		String bucketName="chttest2";
 		String fileName="hello.txt";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
@@ -72,7 +72,7 @@ public class deleteObject{
 			
 	private static void BasicDeleteObject() throws IOException
 	{		
-		String bucketName = "chttest";
+		String bucketName = "source";
 		String fileName="hello.txt";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
@@ -131,7 +131,7 @@ public class deleteObject{
 	{
 		System.out.println("hello world");
 		//basicPutObject();
-		//BasicDeleteObject();
-		vBasicDeleteObject();
+		BasicDeleteObject();
+		//vBasicDeleteObject();
 	}
 }

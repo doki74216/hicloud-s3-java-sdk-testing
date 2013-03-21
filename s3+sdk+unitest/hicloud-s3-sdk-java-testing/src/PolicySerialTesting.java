@@ -95,6 +95,8 @@ public class PolicySerialTesting{
 		 */
 		basicPutBucketPolicy();
 		
+		System.out.println("PolicySerialTest Over");
+		
 		
 	}
 		

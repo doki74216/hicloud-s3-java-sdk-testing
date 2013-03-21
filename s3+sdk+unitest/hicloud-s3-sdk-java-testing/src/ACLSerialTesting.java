@@ -310,14 +310,16 @@ public class ACLSerialTesting{
 		 *      2. PutObjectACL with canned ACL 
 		 *      3. GetObjectACL
 		 */
-		//basicPutObjectACL();
+		basicPutObjectACL();
 		
 		/* 
 		 * test 1. PutObjectACL with user defined ACL with vid
 		 *      2. PutObjectACL with canned ACL with vid
 		 *      3. GetObjectACL with vid
 		 */
-		//vPutObjectACL();
+		vPutObjectACL();
+		
+		System.out.println("ACLSerialTest Over");
 		
 	}
 		

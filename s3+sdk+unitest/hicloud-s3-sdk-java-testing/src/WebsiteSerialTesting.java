@@ -128,14 +128,16 @@ public class WebsiteSerialTesting{
 		 *      2. GetBucketWebsite
 		 *      3. DeleteBucketWebsite
 		 */
-		//basicPutBucketWebsite();
+		basicPutBucketWebsite();
 		
 		/* 
 		 * test 1. PutBucketWebsite without Optional xml field
 		 *      2. GetBucketWebsite
 		 *      3. DeleteBucketWebsite
 		 */
-		PutBucketWebsite();
+		//PutBucketWebsite();
+		
+		System.out.println("WebsiteSerialTest Over");
 		
 	}
 		
