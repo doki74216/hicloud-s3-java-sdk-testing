@@ -49,7 +49,7 @@ public class Neg_getBucketLogging{
 	{
 		System.out.println("basic get bucket policy");
     	
-		String bucketName="chttest";
+		String bucketName="chttest5";
 		BucketLoggingConfiguration config = new BucketLoggingConfiguration();
 		
 		System.out.println("\nExpect 403 InvalidAccessKeyId");

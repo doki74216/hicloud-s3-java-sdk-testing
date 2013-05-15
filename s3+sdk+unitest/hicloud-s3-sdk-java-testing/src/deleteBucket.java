@@ -13,7 +13,7 @@ public class deleteBucket{
 	{
 		System.out.println("basic get bucket");
 		
-		String bucketName="source";
+		String bucketName="chttest6";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try

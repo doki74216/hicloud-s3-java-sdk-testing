@@ -42,27 +42,27 @@ public class BucketSerialTesting{
     {
     	System.out.println("put bucket with region..\n");
     	
-		String bucketName="region"; //bucket with region(region)
-		String bucketNameS="sregion"; //bucket with region(string)		
+		String bucketName="chutest"; //bucket with region(region)
+		//String bucketNameS="sregion"; //bucket with region(string)		
 		String region="EU";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));
 		try
 		{
-			System.out.println("Creating bucket " + bucketNameS + "\n");
-            s3.createBucket(bucketNameS,region);
-            
 			System.out.println("Creating bucket " + bucketName + "\n");
             s3.createBucket(bucketName,region);
+            
+		/*	System.out.println("Creating bucket " + bucketNameS + "\n");
+            s3.createBucket(bucketNameS,region);*/
             
             int count=0;
 	        System.out.println("Listing buckets");
 	        for (Bucket bucket : s3.listBuckets()) {
 	            System.out.println(" - " + bucket.getName());
-	            if(bucket.getName().equalsIgnoreCase(bucketNameS))
+	          /*  if(bucket.getName().equalsIgnoreCase(bucketNameS))
 	            {
 	            	count++;
-	            }
+	            }*/
 	            if(bucket.getName().equalsIgnoreCase(bucketName))
 	            {
 	            	count++;
@@ -73,8 +73,8 @@ public class BucketSerialTesting{
 	        System.out.println();
 	        
 			System.out.println("Tear down..");
-	        s3.deleteBucket(bucketNameS);
 	        s3.deleteBucket(bucketName);
+	      //  s3.deleteBucket(bucketNameS);
 		}
 		catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which means your request made it "
@@ -307,7 +307,7 @@ public class BucketSerialTesting{
 	{
 		System.out.println("hello world");
 		
-		/* 
+		/*
 		 * test 1. bucket with region(type Region & String) 
 		 *      2. Get Service
 		 *      3. Delete Bucket
@@ -318,12 +318,12 @@ public class BucketSerialTesting{
 		 * test 1. bucket with Canned ACL & normal put bucket
 		 *      2. Normal GetBucket
 		 */
-		ACLPutBucket();
+		//ACLPutBucket();
 		
 		/*
 		 * test 1. GetBucket with parameters
 		 */
-		ParameterPutBucket();
+		//ParameterPutBucket();
 		
 		System.out.println("BucketSerialTest Over");
 

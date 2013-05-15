@@ -376,12 +376,14 @@ public class Neg_putObjectCopy{
     public static void main(String args[]) throws IOException
 	{
     	
-    	String sbucketName = "chttest2";
-    	String dbucketName = "chttest3";
+    	String sbucketName = "chttest5";
+    	String dbucketName = "chttest6";
     	String sfileName = "apple.txt";
     	String dfileName = "world.txt";
     	
-		putObjectCopy_404_NoSuchBucket(sbucketName,sfileName,dbucketName,dfileName);
+    	//make sure you don't have the bucket, Or you will get NoSuchVersion
+		putObjectCopy_404_NoSuchBucket(sbucketName,sfileName,dbucketName,dfileName); 
+		
 		basicPutBucket(sbucketName,sfileName);
 		basicPutBucket(dbucketName,dfileName);
 		putObjectCopy_404_NoSuchVersion(sbucketName,sfileName,dbucketName,dfileName);

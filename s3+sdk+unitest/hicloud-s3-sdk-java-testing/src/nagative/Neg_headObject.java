@@ -132,8 +132,8 @@ public class Neg_headObject{
    
     private static void headObject_404_NotFound() throws IOException
     {
-		String bucketName="chttest2";
-		String fileName="hello.txt";
+		String bucketName="chttest5";
+		String fileName="NoSuchKey.txt";
 		System.out.println("\nExpect 404 Not Found");
     	System.out.println("===================================================");
     	//AmazonS3  s3 = new AmazonS3Client((AWSCredentials) new BasicAWSCredentials("edc98059ceb7f848d819e3da1400ab00", "A8ca94ece8b03b8f44210ef31d0e8e41eae6cd554bf48557581fdd47685dbe799"));
@@ -239,7 +239,7 @@ public class Neg_headObject{
  
     public static void main(String args[]) throws IOException
 	{
-    	headObject_404_NotFound();
+    	headObject_404_NotFound();	//make sure you don't have the bucket or key
     	HeadObject_403_InvalidAccessKeyId();
     	HeadObject_403_InvalidSecretKeyId();
 	}

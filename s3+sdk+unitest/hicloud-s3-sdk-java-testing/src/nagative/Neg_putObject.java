@@ -131,7 +131,7 @@ public class Neg_putObject{
     	System.out.println("\nExpect 404 NoSuchBucket");
     	System.out.println("===================================================");
     	
-		String bucketName="chttest2";
+		String bucketName="chttest5";
 		String fileName="hello.txt";
 
 		AmazonS3  s3 = new AmazonS3Client((AWSCredentials) new BasicAWSCredentials("edc98059ceb7f848d819e3da1400ab00", "8ca94ece8b03b8f44210ef31d0e8e41eae6cd554bf48557581fdd47685dbe799"));
@@ -258,7 +258,7 @@ public class Neg_putObject{
     
     public static void main(String args[]) throws IOException
 	{
-		PutObject_404_NoSuchBucket();
+		PutObject_404_NoSuchBucket();	// make sure you don't have the bucket
 		PutObject_403_InvalidAccessKeyId();
 		PutObject_403_InvalidSecretKeyId();
 	}

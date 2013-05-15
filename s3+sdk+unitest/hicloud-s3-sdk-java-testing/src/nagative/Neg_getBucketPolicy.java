@@ -105,8 +105,7 @@ public class Neg_getBucketPolicy{
     public static void main(String args[]) throws IOException
 	{
 		System.out.println("hello world");
-		//basicGetBucketPolicy();
-		
+		//basicGetBucketPolicy();	
 		GetBucketPolicy_403_InvalidAccessKeyId();
     	GetBucketPolicy_403_InvalidSecretKeyId();
 	}

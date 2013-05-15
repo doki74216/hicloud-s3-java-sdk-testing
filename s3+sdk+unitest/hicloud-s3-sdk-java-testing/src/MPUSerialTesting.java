@@ -763,7 +763,7 @@ public class MPUSerialTesting{
 		 *      3. UploadParts 
 		 *      4. basic ListParts
 		 */
-		//AbortMPU();
+		AbortMPU();
 		
 		/* 
 		 * test 1. PutBucket
@@ -789,7 +789,7 @@ public class MPUSerialTesting{
 		 *      4. Abort MPU
 		 */
 
-		ListMPUs(); 
+		//ListMPUs(); 
 
 		System.gc(); //grabage collection
 		

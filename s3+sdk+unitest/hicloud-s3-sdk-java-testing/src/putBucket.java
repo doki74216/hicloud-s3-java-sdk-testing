@@ -151,7 +151,7 @@ public class putBucket{
     {
     	System.out.println("put bucket with canned acl");
     	
-		String bucketName="chttest";
+		String bucketName="chttest2";
 		String fileName="hello.txt";
 		CannedAccessControlList acl = null;
 		

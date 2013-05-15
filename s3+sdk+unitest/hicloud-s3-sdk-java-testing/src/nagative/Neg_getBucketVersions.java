@@ -17,7 +17,7 @@ public class Neg_getBucketVersions{
 	{
 		System.out.println("basic get bucket versions");
     	
-		String bucketName="chttest2";
+		String bucketName="chttest5";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("../AwsCredentials.properties")));
 		try
@@ -50,6 +50,8 @@ public class Neg_getBucketVersions{
 	    }
 	}
 
+	
+	
 	private static void pGetBucketVersions() throws IOException
 	{
 		System.out.println("basic get bucket versions");
@@ -153,6 +155,45 @@ public class Neg_getBucketVersions{
 	    }
 	}
 
+	private static void GetBucketVersions_404_NoSuchBucket() throws IOException
+	{
+		System.out.println("basic get bucket versions");
+    	
+		String bucketName="chttest5";
+		
+		System.out.println("\nExpect 404 NoSuchBucket");
+    	System.out.println("===================================================");
+		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("../AwsCredentials.properties")));
+		try
+		{
+			VersionListing result = s3.listVersions(bucketName, "hello");
+			System.out.println(result.getBucketName());
+			for(S3VersionSummary s : result.getVersionSummaries())
+			{
+				System.out.println(s.getBucketName());
+				System.out.println(s.getKey());
+				System.out.println(s.getETag());
+				System.out.println(s.getSize());
+				System.out.println(s.getVersionId());
+			}
+	        System.out.println();
+	    }
+		catch (AmazonServiceException ase) {
+			System.out.println("Caught an AmazonServiceException, which means your request made it "
+	                    + "to Amazon S3, but was rejected with an error response for some reason.");
+	        System.out.println("Error Message:    " + ase.getMessage());
+	        System.out.println("HTTP Status Code: " + ase.getStatusCode());
+	        System.out.println("AWS Error Code:   " + ase.getErrorCode());
+	        System.out.println("Error Type:       " + ase.getErrorType());
+	        System.out.println("Request ID:       " + ase.getRequestId());
+	    } catch (AmazonClientException ace) {
+	    	System.out.println("Caught an AmazonClientException, which means the client encountered "
+	                    + "a serious internal problem while trying to communicate with S3, "
+	                    + "such as not being able to access the network.");
+	    	System.out.println("Error Message: " + ace.getMessage());
+	    }
+	}
+	
 	private static void GetBucketVersions_403_InvalidAccessKeyId() throws IOException
 	{
 		System.out.println("basic get bucket versions");
@@ -234,8 +275,9 @@ public class Neg_getBucketVersions{
     public static void main(String args[]) throws IOException
 	{
 		System.out.println("hello world");
-		basicGetBucketVersions();
+		//basicGetBucketVersions();
 		
+		GetBucketVersions_404_NoSuchBucket();	//make sure you don't have the bucket 
 		GetBucketVersions_403_InvalidAccessKeyId();
 		GetBucketVersions_403_InvalidSecretKeyId();
 	}

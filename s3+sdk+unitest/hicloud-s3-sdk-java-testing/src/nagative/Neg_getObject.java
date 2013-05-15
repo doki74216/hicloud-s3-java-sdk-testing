@@ -501,10 +501,53 @@ public class Neg_getObject{
             }
     }
     
+    private static void GetObject_404_NoSuchBucket() throws IOException
+    {    	
+    		String bucketName="chttest5";
+    		String fileName="nosuchkey.txt";
+    		System.out.println("\nExpect 404 NoSuchBucket");
+        	System.out.println("===================================================");
+    		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("../AwsCredentials.properties")));
+    		try
+    		{                
+                System.out.println("Getting Object");
+                GetObjectRequest request = new GetObjectRequest(bucketName,fileName);
+                request.withProgressListener(new ProgressListener() 
+                {
+        			public void progressChanged(ProgressEvent event) {
+        				System.out.println("Transferred bytes: " + event.getBytesTransfered());
+        				System.out.println("Event Code: " + event.getEventCode());
+        			}
+        		});
+                S3Object object = s3.getObject(request);
+                System.out.println("Content-Type: "  + object.getObjectMetadata().getContentType());
+                System.out.println("ETag: "  + object.getObjectMetadata().getETag());
+                System.out.println("user-metadata: "  + object.getObjectMetadata().getUserMetadata());
+                System.out.println("raw-metadata: "  + object.getObjectMetadata().getRawMetadata());
+                displayTextInputStream(object.getObjectContent());
+                System.out.println();
+                
+    		}
+    		catch (AmazonServiceException ase) {
+                System.out.println("Caught an AmazonServiceException, which means your request made it "
+                        + "to Amazon S3, but was rejected with an error response for some reason.");
+                System.out.println("Error Message:    " + ase.getMessage());
+                System.out.println("HTTP Status Code: " + ase.getStatusCode());
+                System.out.println("AWS Error Code:   " + ase.getErrorCode());
+                System.out.println("Error Type:       " + ase.getErrorType());
+                System.out.println("Request ID:       " + ase.getRequestId());
+            } catch (AmazonClientException ace) {
+                System.out.println("Caught an AmazonClientException, which means the client encountered "
+                        + "a serious internal problem while trying to communicate with S3, "
+                        + "such as not being able to access the network.");
+                System.out.println("Error Message: " + ace.getMessage());
+            }
+    }
+    
     private static void GetObject_404_NoSuchKey() throws IOException
     {    	
     		String bucketName="chttest2";
-    		String fileName="hello.txt";
+    		String fileName="nosuchkey.txt";
     		System.out.println("\nExpect 404 NoSuchKey");
         	System.out.println("===================================================");
     		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("../AwsCredentials.properties")));
@@ -551,7 +594,7 @@ public class Neg_getObject{
     		
         	System.out.println("\nExpect 403 InvalidAccessKeyId");
         	System.out.println("===================================================");
-        	AmazonS3  s3 = new AmazonS3Client((AWSCredentials) new BasicAWSCredentials("edc98059ceb7f848d819e3da1400ab00", "A8ca94ece8b03b8f44210ef31d0e8e41eae6cd554bf48557581fdd47685dbe799"));
+        	AmazonS3  s3 = new AmazonS3Client((AWSCredentials) new BasicAWSCredentials("Aedc98059ceb7f848d819e3da1400ab00", "8ca94ece8b03b8f44210ef31d0e8e41eae6cd554bf48557581fdd47685dbe799"));
     		try
     		{                
                 System.out.println("Getting Object");
@@ -639,7 +682,8 @@ public class Neg_getObject{
 	{
 		System.out.println("hello world");
 		//PLGetObject(); //with progress listener
-		GetObject_404_NoSuchKey();
+		GetObject_404_NoSuchBucket();	//make sure you don't have the bucket(chttest5)
+		GetObject_404_NoSuchKey();	//make sure you have the bucket(chttest2) & don't have the key
 		GetObject_403_InvalidAccessKeyId();
 		GetObject_403_InvalidSecretKeyId();
 	}

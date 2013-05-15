@@ -99,7 +99,7 @@ public class ObjectSerialTesting{
     
     private static void basicPutObject() throws IOException
     {
-    	String bucketName="chttest1";	
+    	String bucketName="chttest";	
     	String fileName="hello.txt";
 		
 		AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(putBucket.class.getResourceAsStream("AwsCredentials.properties")));

@@ -23,7 +23,7 @@ public class Neg_putBucketLogging{
 	{
 		System.out.println("basic put bucket");
 	    	
-		String bucketName="chttest";
+		String bucketName="chttest2";
 		String bucketName2="region";
 		
 			

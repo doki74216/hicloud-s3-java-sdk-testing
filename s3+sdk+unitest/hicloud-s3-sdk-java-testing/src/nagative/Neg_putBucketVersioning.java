@@ -52,7 +52,7 @@ public class Neg_putBucketVersioning{
 	{
 		System.out.println("basic put bucket versioning");
     	
-		String bucketName="chttest2";
+		String bucketName="chttest3";
 		
 		BucketVersioningConfiguration config = new BucketVersioningConfiguration();
 		//config.setStatus("Enabled");
@@ -166,7 +166,7 @@ public class Neg_putBucketVersioning{
 	{
 		System.out.println("hello world");
 		//basicPutBucket();
-		basicPutBucketVersioning();
+		//basicPutBucketVersioning();
 		
 		PutBucketVersioning_403_InvalidAccessKeyId();
 		PutBucketVersioning_403_InvalidSecretKeyId();

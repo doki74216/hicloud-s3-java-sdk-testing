@@ -36,8 +36,7 @@ public class hicloud_S3Sample {
         /*
          * 重要：在運行此範例程式前，請務必確認已將hicloud S3 access credentials填入AwsCredentials.properties檔案中
          */
-        AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(
-                hicloud_S3Sample.class.getResourceAsStream("AwsCredentials.properties")));
+        AmazonS3 s3 = new AmazonS3Client(new PropertiesCredentials(hicloud_S3Sample.class.getResourceAsStream("AwsCredentials.properties")));
 
         String bucketName = "my-first-s3-bucket";
         String key = "MyObjectKey";
